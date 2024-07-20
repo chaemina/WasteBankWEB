@@ -1,19 +1,14 @@
 import React from "react";
-import Container from "../components/Container";
-import CustomButton from "../components/CustomButton";
-import CustomText from "../components/CustomText";
+import Container from "../components/atoms/Container";
+import CustomText from "../components/atoms/CustomText";
+import AppContainer from "../components/atoms/AppContainer";
 
 const HomePage: React.FC = () => {
   return (
-    <>
-      <Container>
-        <CustomText size="title">텍스트</CustomText>
-        <CustomText size="body">텍스트</CustomText>
-        <CustomButton size="md" onClick={() => {}}>
-          버튼
-        </CustomButton>
-      </Container>
-    </>
+    <Container>
+      <CustomText size="title">본문 내용 출력</CustomText>
+      <AppContainer/>
+    </Container>
   );
 };
 
