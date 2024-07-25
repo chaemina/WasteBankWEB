@@ -18,7 +18,7 @@ const GarbagebinPage: React.FC = () => {
 
   return (
     <Container>
-      <CustomText size="title" bold color="#40892D">
+      <CustomText size="title" bold={true} color="#40892D">
         Menunggu di pick-up
       </CustomText>
       <Register />

@@ -30,25 +30,25 @@ const HomeButton = () => {
 
   return (
     <ButtonContainer>
-      <Button rounded onClick={() => nav(`/garbagebin`)}>
+      <Button rounded={true} onClick={() => nav(`/garbagebin`)}>
         <img src={icon_bin} />
         <CustomText color="white" size="body">
           Garbage bin
         </CustomText>
       </Button>
-      <Button rounded onClick={onClickButton}>
+      <Button rounded={true} onClick={() => nav(`/pickup/>`)}>
         <img src={icon_pickup} />
         <CustomText color="white" size="body">
           Pick-up
         </CustomText>
       </Button>
-      <Button rounded onClick={onClickButton}>
+      <Button rounded={true} onClick={onClickButton}>
         <img src={icon_schedule} />
         <CustomText color="white" size="body">
           Schedule
         </CustomText>
       </Button>
-      <Button rounded onClick={onClickButton}>
+      <Button rounded={true} onClick={onClickButton}>
         <img src={icon_saving} />
         <CustomText color="white" size="body">
           My saving
