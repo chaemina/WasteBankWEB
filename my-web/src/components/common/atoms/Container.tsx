@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
-import { scale,useViewport } from "../../utils/Scale";
+import { scale, useViewport } from "../../../utils/Scale";
 
 type ContainerProps = {
   children: ReactNode;

@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { scale,useViewport } from "../../utils/Scale";
-
+import { scale, useViewport } from "../../../utils/Scale";
 
 export type Props = {
   children: string;

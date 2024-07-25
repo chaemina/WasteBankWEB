@@ -101,7 +101,7 @@ const StyledButton = styled.button<{
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ color }) => (color ? color : "green")};
+  background-color: ${({ color }) => (color ? color : "#40892D")};
   border: none;
   border-radius: ${({ rounded }) => (rounded ? "25px" : "12px")};
   cursor: pointer;
