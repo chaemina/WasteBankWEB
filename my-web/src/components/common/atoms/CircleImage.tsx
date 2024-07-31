@@ -12,6 +12,7 @@ const Circle = styled.div<{ width: number; height: number }>`
   border: none;
   align-items: center;
   justify-content: center;
+  padding: 10px;
 `;
 
 const Image = styled.img`

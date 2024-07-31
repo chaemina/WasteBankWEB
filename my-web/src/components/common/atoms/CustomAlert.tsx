@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import CustomText from "../atoms/CustomText";
 import CustomButton from "../atoms/CustomButton";
+import { scale } from "../../../utils/Scale";
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -17,11 +18,13 @@ const ModalBackground = styled.div`
 `;
 
 const AlertBox = styled.div`
-  width: 300px;
-  height: 200px;
+  width: ${scale(250)}px;
+  height: ${scale(150)}px;
   border-radius: 28px;
   border: 3px solid #40892d;
   background-color: #fff;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 20px;
@@ -32,6 +35,7 @@ const AlertButtonContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding-top: 15px;
+  display: flex;
 `;
 
 const Spacer = styled.div`
@@ -70,7 +74,13 @@ const CustomAlert: React.FC<AlertProps> = ({
             color="#40892d"
           />
           <Spacer />
-          <CustomButton size="xs" label="No" onClick={onClose} color="#fff" />
+          <CustomButton
+            size="xs"
+            style={{ border: "3px solid #40892d" }}
+            label="No"
+            onClick={onClose}
+            color="white"
+          />
         </AlertButtonContainer>
       </AlertBox>
     </ModalBackground>

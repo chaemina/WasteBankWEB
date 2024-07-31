@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import CustomText from "../atoms/CustomText";
-import { useViewport, moderateScale } from "../../../utils/Scale";
 
 const HeaderContainer = styled.div`
   display: flex;

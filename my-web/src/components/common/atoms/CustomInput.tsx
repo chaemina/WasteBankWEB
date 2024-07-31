@@ -5,22 +5,30 @@ import { moderateScale, scale } from "../../../utils/Scale";
 
 type CustomInputProps = {
   placeholder?: string;
-  width?: 150 | 250;
+  width?: number;
   style?: React.CSSProperties;
   autoFocus?: boolean;
   defaultValue?: string;
   keyboardType?: string;
   label?: string;
+  labelColor?: string;
+  inputColor?: string;
 };
 
-const Input = styled.input<{ width: number }>`
+const Container = styled.div`
+  margin: ${scale(10)}px;
+`;
+
+const Input = styled.input<{ width: number; inputColor: string }>`
   height: ${moderateScale(48, 0.3)}px;
-  border: 2px solid #000000;
+  width: ${(props) => moderateScale(props.width, 0.3)}px;
+  border-width: 2px;
   padding: ${scale(10)}px;
   margin: ${scale(10)}px;
   border-radius: 8px;
-  background-color: #fff;
-  width: ${(props) => moderateScale(props.width, 0.3)}px;
+  border-color: ${({ inputColor }) =>
+    inputColor === "#40892d" ? "white" : "#4C4C4C"};
+  background-color: ${({ inputColor }) => inputColor};
   box-sizing: border-box;
 `;
 
@@ -32,12 +40,14 @@ const CustomInput: React.FC<CustomInputProps> = ({
   defaultValue,
   keyboardType,
   label,
+  labelColor = "#000",
+  inputColor = "#fff",
 }) => {
   const [value, setValue] = useState(defaultValue || "");
 
   return (
-    <>
-      {label && <CustomText>{label}</CustomText>}
+    <Container>
+      {label && <CustomText color={labelColor}>{label}</CustomText>}
       <Input
         width={width}
         onChange={(e) => setValue(e.target.value)}
@@ -46,8 +56,9 @@ const CustomInput: React.FC<CustomInputProps> = ({
         autoFocus={autoFocus}
         type={keyboardType}
         style={style}
+        inputColor={inputColor}
       />
-    </>
+    </Container>
   );
 };
 

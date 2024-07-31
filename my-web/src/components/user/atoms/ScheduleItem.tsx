@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import CustomText from "../../common/atoms/CustomText";
 import icon_search from "../../../assets/images/icon_search.svg";
 import CircleImage from "../../common/atoms/CircleImage";
+import icon_fill_star from "../../../assets/images/icon_fill_star.svg";
+import icon_empty_star from "../../../assets/images/icon_empty_star.svg";
 
 const ItemContainer = styled.div`
   background-color: #40892d;
@@ -34,12 +36,27 @@ const CollectorInfo = styled.div`
   align-items: center;
 `;
 
+const StarBtn = styled.button`
+  width: 40px;
+  height: 40px;
+  background: none;
+  border-radius: 15px;
+  border: none;
+`;
+
 type ScheduleItemProps = {
   day: string;
   collector_name: string;
+  search?: boolean;
+  done?: boolean;
 };
 
-const ScheduleItem: React.FC<ScheduleItemProps> = ({ day, collector_name }) => {
+const ScheduleItem: React.FC<ScheduleItemProps> = ({
+  day,
+  collector_name,
+  search,
+  done,
+}) => {
   const nav = useNavigate();
 
   return (
@@ -48,9 +65,17 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ day, collector_name }) => {
         <CustomText color="white" bold={true} size="title">
           {day}
         </CustomText>
-        <SearchButton onClick={() => nav(`/detailpickup`)}>
-          <img style={{ width: "100%" }} src={icon_search} />
-        </SearchButton>
+        {done ? (
+          <StarBtn onClick={() => nav(`/rating`)}>
+            <img width="100%" src={icon_fill_star} />
+          </StarBtn>
+        ) : (
+          search && (
+            <SearchButton onClick={() => nav(`/detailpickup`)}>
+              <img style={{ width: "100%" }} src={icon_search} />
+            </SearchButton>
+          )
+        )}
       </DayContainer>
       <CollectorInfo>
         <CircleImage width={40} height={40} role="collector" />

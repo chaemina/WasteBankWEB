@@ -1,36 +1,35 @@
-import React, { ReactNode } from "react";
-import styled from "styled-components";
-import { scale, useViewport } from "../../../utils/Scale";
+import React, { ReactNode, CSSProperties } from "react";
+import { scale, width } from "../../../utils/Scale";
 
 type ContainerProps = {
   children: ReactNode;
 };
 
 const Container: React.FC<ContainerProps> = ({ children }) => {
-  const { width, height } = useViewport();
+  const customStyle: CSSProperties = {
+    width: width,
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: scale(10),
+    justifyContent: "center",
+  };
 
   return (
-    <SafeArea>
-      <CustomView width={width} height={height}>
-        {children}
-      </CustomView>
-    </SafeArea>
+    <div style={{ flex: 1 }}>
+      <div
+        style={{
+          flexGrow: 1,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <div style={customStyle}>{children}</div>
+      </div>
+    </div>
   );
 };
-
-const SafeArea = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-`;
-
-const CustomView = styled.div<{ width: number; height: number }>`
-  width: ${(props) => props.width}px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: ${(props) => scale(20, props.width)}px;
-`;
 
 export default Container;

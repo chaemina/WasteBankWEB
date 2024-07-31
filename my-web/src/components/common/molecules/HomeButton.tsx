@@ -7,16 +7,23 @@ import icon_bin from "../../../assets/images/icon_bin.svg";
 import icon_pickup from "../../../assets/images/icon_pickup.svg";
 import icon_schedule from "../../../assets/images/icon_schedule.svg";
 import icon_saving from "../../../assets/images/icon_saving.svg";
+import { scale } from "../../../utils/Scale";
 
 const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   display: grid;
   width: 100%;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   box-sizing: border-box;
+  gap: ${scale(20)}px;
 `;
 
 const Button = styled(CustomButton)`
+  width: ${scale(170)}px;
+  height: ${scale(170)}px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -25,35 +32,31 @@ const Button = styled(CustomButton)`
 
 const onClickButton = () => {};
 
-const HomeButton = () => {
-  const nav = useNavigate();
+type PageButtonProps = {
+  icon: string;
+  button_name: string;
+  page: string;
+};
 
+const PageButton: React.FC<PageButtonProps> = ({ icon, button_name, page }) => {
+  const nav = useNavigate();
+  return (
+    <Button rounded={true} onClick={() => nav(`/${page}`)}>
+      <img src={icon} />
+      <CustomText color="white" size="body">
+        {button_name}
+      </CustomText>
+    </Button>
+  );
+};
+
+const HomeButton = () => {
   return (
     <ButtonContainer>
-      <Button rounded={true} onClick={() => nav(`/garbagebin`)}>
-        <img src={icon_bin} />
-        <CustomText color="white" size="body">
-          Garbage bin
-        </CustomText>
-      </Button>
-      <Button rounded={true} onClick={() => nav(`/pickup/>`)}>
-        <img src={icon_pickup} />
-        <CustomText color="white" size="body">
-          Pick-up
-        </CustomText>
-      </Button>
-      <Button rounded={true} onClick={onClickButton}>
-        <img src={icon_schedule} />
-        <CustomText color="white" size="body">
-          Schedule
-        </CustomText>
-      </Button>
-      <Button rounded={true} onClick={onClickButton}>
-        <img src={icon_saving} />
-        <CustomText color="white" size="body">
-          My saving
-        </CustomText>
-      </Button>
+      <PageButton icon={icon_bin} button_name="Garbage bin" page="garbagebin" />
+      <PageButton icon={icon_pickup} button_name="Pick-up" page="pickup" />
+      <PageButton icon={icon_schedule} button_name="Schedule" page="schedule" />
+      <PageButton icon={icon_saving} button_name="My saving" page="mysaving" />
     </ButtonContainer>
   );
 };

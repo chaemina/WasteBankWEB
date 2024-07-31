@@ -10,14 +10,18 @@ const ScheduleContainer = styled.div`
 `;
 
 const scheduleData = [
-  { day: "Monday", collector_name: "Collector A" },
-  { day: "Tuesday", collector_name: "Collector B" },
-  { day: "Wednesday", collector_name: "Collector C" },
-  { day: "Thursday", collector_name: "Collector D" },
-  { day: "Friday", collector_name: "Collector E" },
+  { day: "Monday", collector_name: "Collector A", done: true },
+  { day: "Tuesday", collector_name: "Collector B", done: false },
+  { day: "Wednesday", collector_name: "Collector C", done: false },
+  { day: "Thursday", collector_name: "Collector D", done: false },
+  { day: "Friday", collector_name: "Collector E", done: false },
 ];
 
-const ScheduleList = () => {
+type ScheduleListProps = {
+  search?: boolean;
+};
+
+const ScheduleList: React.FC<ScheduleListProps> = ({ search }) => {
   return (
     <ScheduleContainer>
       {scheduleData.map((item, index) => (
@@ -25,6 +29,8 @@ const ScheduleList = () => {
           key={index}
           day={item.day}
           collector_name={item.collector_name}
+          done={item.done}
+          search={search}
         />
       ))}
     </ScheduleContainer>

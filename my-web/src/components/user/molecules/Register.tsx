@@ -7,62 +7,79 @@ import icon_bin from "../../../assets/images/icon_bin.svg";
 import styled from "styled-components";
 
 const RegisterContainer = styled.div`
+  display: flex;
   width: 100%;
   background-color: #40892d;
 `;
 
-const SampahDetail = styled.div`
+const SampahDetailBox = styled.div`
   flex-direction: column;
   margin-top: auto;
   margin-bottom: 10px;
+  flex: 1;
 `;
 
-const SampahWeight = styled.div`
+const SampahWeightBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-right: auto;
+  flex: 1;
 `;
+
+type SampahDetailProps = {
+  rp: string;
+  sampah_type: string;
+};
+
+const SampahDetail: React.FC<SampahDetailProps> = ({ sampah_type, rp }) => {
+  return (
+    <SampahDetailBox>
+      <CustomText size="caption" color="white">
+        {sampah_type}
+      </CustomText>
+      <CustomText size="body" color="white">
+        Rp. {rp}
+      </CustomText>
+    </SampahDetailBox>
+  );
+};
+
+const SampahWeight = () => {
+  return (
+    <SampahWeightBox>
+      <CustomText size="body" color="white">
+        Berat :
+      </CustomText>
+      <CustomInput
+        style={{
+          width: "80px",
+          height: "45px",
+          border: "none",
+        }}
+      />
+    </SampahWeightBox>
+  );
+};
 
 const Register = () => {
   return (
-    <RegisterContainer>
-      <div style={{ display: "flex" }}>
-        <img src={icon_bin} />
-        <SampahDetail>
-          <CustomText size="caption" color="white">
-            Sampah organik
-          </CustomText>
-          <CustomText size="body" color="white">
-            Rp.60.000
-          </CustomText>
-        </SampahDetail>
-        <SampahWeight>
-          <CustomText size="body" color="white">
-            Berat :
-          </CustomText>
-          <CustomInput />
-        </SampahWeight>
-      </div>
-      <div style={{ display: "flex" }}>
-        <img src={icon_bin} />
-        <SampahDetail>
-          <CustomText size="caption" color="white">
-            Sampah non-organik
-          </CustomText>
-          <CustomText size="body" color="white">
-            Rp.80.000
-          </CustomText>
-        </SampahDetail>
-        <SampahWeight>
-          <CustomText size="body" color="white">
-            Berat :
-          </CustomText>
-          <CustomInput />
-        </SampahWeight>
-      </div>
-    </RegisterContainer>
+    <div>
+      <RegisterContainer>
+        <div style={{ display: "flex" }}>
+          <img src={icon_bin} />
+        </div>
+        <SampahDetail sampah_type="Sampah organik" rp="60.000" />
+        <SampahWeight />
+      </RegisterContainer>
+      <RegisterContainer>
+        <div style={{ display: "flex" }}>
+          <img src={icon_bin} />
+        </div>
+        <SampahDetail sampah_type="Sampah non-organik" rp="80.000" />
+        <SampahWeight />
+      </RegisterContainer>
+    </div>
   );
 };
 

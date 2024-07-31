@@ -18,17 +18,15 @@ const GarbagebinPage: React.FC = () => {
 
   return (
     <Container>
-      <CustomText size="title" bold={true} color="#40892D">
+      <CustomText size="title" bold color="#40892D">
         Menunggu di pick-up
       </CustomText>
       <Register />
-      <CustomButton size="sm" rounded onClick={onClickAlert}>
-        <CustomText color="white">Krim</CustomText>
-      </CustomButton>
+      <CustomButton label="Krim" size="sm" rounded onClick={onClickAlert} />
       {alert && (
         <CustomAlert
-          title="Alert"
-          text="This is an alert message."
+          title="Total yang didapatkan"
+          text="Rp.140.000"
           visible={alert}
           onClose={onClickClose}
         />

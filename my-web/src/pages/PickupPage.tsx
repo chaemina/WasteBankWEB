@@ -9,7 +9,7 @@ const PickupPage = () => {
   return (
     <Container>
       <Identification role="user" name="Waste collection schedule" />
-      <ScheduleList />
+      <ScheduleList search={true} />
     </Container>
   );
 };

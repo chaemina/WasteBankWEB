@@ -12,17 +12,24 @@ const IdentificationContainer = styled.div`
 `;
 
 type IdentificationProps = {
-  name: string;
+  style?: React.CSSProperties;
+  name?: string;
   role: string;
 };
 
-const Identification: React.FC<IdentificationProps> = ({ name, role }) => {
+const Identification: React.FC<IdentificationProps> = ({
+  name,
+  role,
+  style,
+}) => {
   return (
-    <IdentificationContainer>
+    <IdentificationContainer style={style}>
       <CircleImage width={80} height={80} role={role} />
-      <CustomText size="title" bold={true} color="#40892D">
-        {name}
-      </CustomText>
+      {name && (
+        <CustomText size="title" bold={true} color="#40892D">
+          {name}
+        </CustomText>
+      )}
     </IdentificationContainer>
   );
 };
