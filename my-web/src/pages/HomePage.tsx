@@ -1,13 +1,15 @@
 import React from "react";
-import Container from "../components/atoms/Container";
-import CustomText from "../components/atoms/CustomText";
-import AppContainer from "../components/atoms/AppContainer";
+import Container from "../components/common/atoms/Container";
+import Header from "../components/common/molecules/Header";
+import HomeButton from "../components/common/molecules/HomeButton";
 
 const HomePage: React.FC = () => {
   return (
     <Container>
-      <CustomText size="title">본문 내용 출력</CustomText>
-      <AppContainer/>
+      <div style={{ alignItems: "center" }}>
+        <Header name="Fasten Julio Akbar" />
+        <HomeButton />
+      </div>
     </Container>
   );
 };

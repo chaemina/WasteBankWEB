@@ -1,10 +1,9 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import styled from "styled-components";
-import { scale,useViewport } from "../../utils/Scale";
-
+import { scale } from "../../../utils/Scale";
 
 export type Props = {
-  children: string;
+  children: string | string[];
   bold?: boolean;
   color?: string;
   size?: "title" | "body" | "caption";
@@ -15,13 +14,13 @@ const getFontSize = (
 ): string => {
   switch (size) {
     case "title":
-      return "20px";
+      return `${scale(20)}px`;
     case "body":
-      return "16px";
+      return `${scale(16)}px`;
     case "caption":
-      return "12px";
+      return `${scale(12)}px`;
     default:
-      return "16px";
+      return `${scale(16)}px`;
   }
 };
 

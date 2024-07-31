@@ -1,5 +1,7 @@
 import React, { FC } from "react";
+import { moderateScale } from "../../../utils/Scale";
 import styled from "styled-components";
+import CustomText from "./CustomText";
 
 export type Props = {
   label?: string;
@@ -8,6 +10,7 @@ export type Props = {
   size?: "xs" | "sm" | "md" | "lg";
   rounded?: boolean;
   onClick?: (data?: any) => void;
+  style?: React.CSSProperties;
 };
 
 const CustomButton: FC<Props> = ({
@@ -17,13 +20,14 @@ const CustomButton: FC<Props> = ({
   color,
   size = "md",
   rounded = false,
+  style,
   ...rest
 }) => {
   const getTextSize = (size: "xs" | "sm" | "md" | "lg") => {
     switch (size) {
       case "xs":
-      case "sm":
         return "caption";
+      case "sm":
       case "md":
         return "body";
       case "lg":
@@ -41,10 +45,21 @@ const CustomButton: FC<Props> = ({
       color={color}
       size={size}
       rounded={rounded}
+      style={style}
       {...rest}
     >
       {label ? (
-        <CustomText color="white" bold={true} size={textSize}>
+        <CustomText
+          color={
+            color === "#40892d"
+              ? "white"
+              : color === "white"
+              ? "black"
+              : "white"
+          }
+          bold={true}
+          size={textSize}
+        >
           {label}
         </CustomText>
       ) : (
@@ -57,31 +72,36 @@ const CustomButton: FC<Props> = ({
 export default CustomButton;
 
 const getButtonDimensions = (size: "xs" | "sm" | "md" | "lg") => {
+  const unit = "px";
   switch (size) {
+    // Modal Button
     case "xs":
       return {
-        width: "56px",
-        height: "40px",
+        width: `${moderateScale(56, 0.3)}${unit}`,
+        height: `${moderateScale(40, 0.3)}${unit}`,
       };
+    // Normal Button
     case "sm":
       return {
-        width: "284px",
-        height: "59px",
+        width: `${moderateScale(258, 0.3)}${unit}`,
+        height: `${moderateScale(40, 0.3)}${unit}`,
       };
+    // Home List Button
     case "md":
       return {
-        width: "154px",
-        height: "154px",
+        width: `${moderateScale(154, 0.3)}${unit}`,
+        height: `${moderateScale(154, 0.3)}${unit}`,
       };
+    // Using in SignUp
     case "lg":
       return {
-        width: "280px",
-        height: "120px",
+        width: `${moderateScale(250, 0.3)}${unit}`,
+        height: `${moderateScale(100, 0.3)}${unit}`,
       };
     default:
       return {
-        width: "154px",
-        height: "154px",
+        width: `${moderateScale(154, 0.3)}${unit}`,
+        height: `${moderateScale(154, 0.3)}${unit}`,
       };
   }
 };
@@ -98,35 +118,12 @@ const StyledButton = styled.button<{
       height: ${height};
     `;
   }}
-  display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ color }) => (color ? color : "green")};
-  border: none;
+  background-color: ${({ color }) => (color ? color : "#40892d")};
+  border: 2px #40892d;
   border-radius: ${({ rounded }) => (rounded ? "25px" : "12px")};
   cursor: pointer;
-`;
-
-// Using Custom Text
-const CustomText = styled.span<{
-  color?: string;
-  bold?: boolean;
-  size?: string;
-}>`
-  color: ${({ color }) => color || "white"};
-  font-weight: ${({ bold }) => (bold ? "bold" : "normal")};
-  font-size: ${({ size }) => {
-    switch (size) {
-      case "title":
-        return "20px";
-      case "body":
-        return "16px";
-      case "caption":
-        return "12px";
-      default:
-        return "16px";
-    }
-  }};
 `;
 
 // 사용 예시
