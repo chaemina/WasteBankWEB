@@ -1,21 +1,30 @@
 import React from "react";
 import CustomText from "../../common/atoms/CustomText";
-import CustomAlert from "../../common/atoms/CustomAlert";
 import CustomInput from "../../common/atoms/CustomInput";
-import CustomButton from "../../common/atoms/CustomButton";
 import icon_bin from "../../../assets/images/icon_bin.svg";
 import styled from "styled-components";
+import IconImage from "../../common/atoms/IconImage";
+import { scale, verticalScale } from "../../../utils/Scale";
+
+type RegisterProps = {
+  sampah_type: string;
+  rp: number;
+  onInputChange?: (value: string) => void;
+};
 
 const RegisterContainer = styled.div`
   display: flex;
   width: 100%;
   background-color: #40892d;
+  align-items: center;
+  height: ${verticalScale(130)}px;
+  box-sizing: border-box;
+  padding: ${scale(10)}px;
 `;
 
 const SampahDetailBox = styled.div`
+  display: flex;
   flex-direction: column;
-  margin-top: auto;
-  margin-bottom: 10px;
   flex: 1;
 `;
 
@@ -27,58 +36,65 @@ const SampahWeightBox = styled.div`
   flex: 1;
 `;
 
-type SampahDetailProps = {
-  rp: string;
-  sampah_type: string;
-};
-
-const SampahDetail: React.FC<SampahDetailProps> = ({ sampah_type, rp }) => {
+const SampahDetail: React.FC<RegisterProps> = ({ sampah_type, rp }) => {
   return (
     <SampahDetailBox>
-      <CustomText size="caption" color="white">
+      <CustomText size="body" color="white">
         {sampah_type}
       </CustomText>
-      <CustomText size="body" color="white">
+      <CustomText size="title" bold color="white">
         Rp. {rp}
       </CustomText>
     </SampahDetailBox>
   );
 };
 
-const SampahWeight = () => {
+const SampahWeight: React.FC<{ onChange?: (value: string) => void }> = ({
+  onChange,
+}) => {
   return (
     <SampahWeightBox>
       <CustomText size="body" color="white">
         Berat :
       </CustomText>
-      <CustomInput
-        style={{
-          width: "80px",
-          height: "45px",
-          border: "none",
-        }}
-      />
+      <CustomInput width={80} height={50} onChange={onChange} />
     </SampahWeightBox>
   );
 };
 
-const Register = () => {
+const RegisterContent: React.FC<RegisterProps> = ({
+  sampah_type,
+  rp,
+  onInputChange,
+}) => {
   return (
-    <div>
-      <RegisterContainer>
-        <div style={{ display: "flex" }}>
-          <img src={icon_bin} />
-        </div>
-        <SampahDetail sampah_type="Sampah organik" rp="60.000" />
-        <SampahWeight />
-      </RegisterContainer>
-      <RegisterContainer>
-        <div style={{ display: "flex" }}>
-          <img src={icon_bin} />
-        </div>
-        <SampahDetail sampah_type="Sampah non-organik" rp="80.000" />
-        <SampahWeight />
-      </RegisterContainer>
+    <RegisterContainer>
+      <IconImage src={icon_bin} margin={5} />
+      <SampahDetail sampah_type={sampah_type} rp={rp} />
+      <SampahWeight onChange={onInputChange} />
+    </RegisterContainer>
+  );
+};
+
+const Register: React.FC<{ onInputChange?: (value: string) => void }> = ({
+  onInputChange,
+}) => {
+  return (
+    <div
+      style={{
+        marginTop: `${verticalScale(60)}px`,
+      }}
+    >
+      <RegisterContent
+        sampah_type="Sampah organik"
+        rp={60}
+        onInputChange={onInputChange}
+      />
+      <RegisterContent
+        sampah_type="Sampah non-organik"
+        rp={80}
+        onInputChange={onInputChange}
+      />
     </div>
   );
 };

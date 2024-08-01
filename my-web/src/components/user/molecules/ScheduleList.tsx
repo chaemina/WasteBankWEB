@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import ScheduleItem from "../atoms/ScheduleItem";
+import { verticalScale } from "../../../utils/Scale";
 
 const ScheduleContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
-  gap: 10px; /* 각 ScheduleItem 간격을 조정할 수 있습니다. */
+  gap: ${verticalScale(15)}px;
 `;
 
 const scheduleData = [
@@ -19,9 +21,10 @@ const scheduleData = [
 
 type ScheduleListProps = {
   search?: boolean;
+  accept?: boolean;
 };
 
-const ScheduleList: React.FC<ScheduleListProps> = ({ search }) => {
+const ScheduleList: React.FC<ScheduleListProps> = ({ search, accept }) => {
   return (
     <ScheduleContainer>
       {scheduleData.map((item, index) => (
@@ -31,6 +34,7 @@ const ScheduleList: React.FC<ScheduleListProps> = ({ search }) => {
           collector_name={item.collector_name}
           done={item.done}
           search={search}
+          accept={accept}
         />
       ))}
     </ScheduleContainer>

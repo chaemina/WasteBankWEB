@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import CustomText from "../atoms/CustomText";
 import CustomButton from "../atoms/CustomButton";
-import { scale } from "../../../utils/Scale";
+import { scale, verticalScale } from "../../../utils/Scale";
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -19,7 +19,7 @@ const ModalBackground = styled.div`
 
 const AlertBox = styled.div`
   width: ${scale(250)}px;
-  height: ${scale(150)}px;
+  height: ${verticalScale(150)}px;
   border-radius: 28px;
   border: 3px solid #40892d;
   background-color: #fff;
@@ -27,19 +27,20 @@ const AlertBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: ${scale(20)}px;
+  gap: ${scale(15)}px;
 `;
 
 const AlertButtonContainer = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding-top: 15px;
+  padding-top: ${verticalScale(10)}px;
   display: flex;
 `;
 
 const Spacer = styled.div`
-  width: 30px;
+  width: ${scale(30)}px;
 `;
 
 export type AlertProps = {

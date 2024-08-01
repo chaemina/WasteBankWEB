@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import icon_password from "../../../assets/images/icon_password.svg";
 import icon_user_black from "../../../assets/images/icon_user_black.svg";
-import CustomInput from "./CustomInput";
-import { useState } from "react";
+import CustomInput from "../atoms/CustomInput";
+import { scale, verticalScale } from "../../../utils/Scale";
 
 const LoginContainer = styled.div`
   display: flex;
@@ -15,41 +15,31 @@ const InputWrapper = styled.div`
   display: flex;
   align-items: center;
   border: 1.8px solid #acacac;
-  padding: 5px;
-  margin: 10px;
+  padding: ${verticalScale(5)}px;
+  margin: ${verticalScale(10)}px;
   border-radius: 20px;
   background-color: #fff;
-  width: 250px;
+  width: ${scale(280)}px;
+  height: ${verticalScale(60)}px;
   box-sizing: border-box;
 `;
 
 const Icon = styled.img`
-  width: 24px;
-  height: 24px;
-  margin: 5px 10px;
+  width: ${scale(30)}px;
+  height: ${scale(30)}px;
+  margin: ${verticalScale(5)}px;
 `;
 
 const LoginForm = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
   return (
     <LoginContainer>
       <InputWrapper>
         <Icon src={icon_user_black} />
-        <CustomInput
-          placeholder="Username..."
-          onChange={(value) => setUsername(value)}
-          style={{ border: "none", outline: "none", flex: 1, padding: 0 }}
-        />
+        <CustomInput placeholder="Username..." />
       </InputWrapper>
       <InputWrapper>
         <Icon src={icon_password} />
-        <CustomInput
-          placeholder="Password..."
-          onChange={(value) => setPassword(value)}
-          style={{ border: "none", outline: "none", flex: 1, padding: 0 }}
-        />
+        <CustomInput placeholder="Password..." />
       </InputWrapper>
     </LoginContainer>
   );

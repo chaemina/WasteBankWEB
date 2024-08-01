@@ -1,18 +1,25 @@
-import React from "react";
-import styled from "styled-components";
+import {
+  ScrollableContainer,
+  ListContainer,
+} from "../components/user/organisms/ScrollContainer";
 import ScheduleList from "../components/user/molecules/ScheduleList";
 import Container from "../components/common/atoms/Container";
 import Identification from "../components/common/molecules/Identification";
-import CustomText from "../components/common/atoms/CustomText";
+import { verticalScale } from "../utils/Scale";
 
 const SchedulePage = () => {
   return (
     <Container>
-      <Identification role="user" />
-      <CustomText size="title" bold color="#40892d">
-        garbage collection schedule
-      </CustomText>
-      <ScheduleList />
+      <ScrollableContainer>
+        <Identification
+          role="user"
+          title="Garbage collection schedule"
+          style={{ marginTop: `${verticalScale(20)}px` }}
+        />
+        <ListContainer>
+          <ScheduleList />
+        </ListContainer>
+      </ScrollableContainer>
     </Container>
   );
 };

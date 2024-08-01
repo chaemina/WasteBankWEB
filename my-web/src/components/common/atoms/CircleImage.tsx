@@ -2,17 +2,18 @@ import React from "react";
 import styled from "styled-components";
 import icon_user from "../../../assets/images/icon_user.svg";
 import icon_collector from "../../../assets/images/icon_collector.svg";
+import { scale } from "../../../utils/Scale";
 
 const Circle = styled.div<{ width: number; height: number }>`
   display: flex;
-  width: ${(props) => (props.width ? `${props.width}px` : "")};
-  height: ${(props) => (props.height ? `${props.height}px` : "")};
+  width: ${(props) => (props.width ? `${scale(props.width)}px` : "")};
+  height: ${(props) => (props.height ? `${scale(props.width)}px` : "")};
   border-radius: 50%;
   background-color: #40892d;
   border: none;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: ${scale(10)}px;
 `;
 
 const Image = styled.img`
