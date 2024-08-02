@@ -16,6 +16,14 @@ const KonfirmButton = styled(CustomButton)`
 `;
 
 const DetailPickupPage = () => {
+
+
+  const handleButtonClick = () => {
+    if (window.ReactNativeWebView) {
+      window.ReactNativeWebView.postMessage("CollectorMapView");
+    }
+  };
+
   return (
     <Container>
       <Header title="Detail Pick-up" />
@@ -31,7 +39,7 @@ const DetailPickupPage = () => {
         role="collector"
         name="Shizuki yanto"
       />
-      <KonfirmButton size="lg">
+      <KonfirmButton size="lg" onClick={handleButtonClick}>
         <img src={icon_pickup} style={{ width: `${scale(80)}px` }} />
         <CustomText color="white" size="body" bold>
           Konfirmasi
