@@ -3,10 +3,11 @@ import styled from "styled-components";
 import { scale } from "../../../utils/Scale";
 
 export type Props = {
-  children: string | string[];
+  children: any;
   bold?: boolean;
   color?: string;
   size?: "title" | "body" | "caption";
+  style?: React.CSSProperties;
 };
 
 const getFontSize = (
@@ -24,11 +25,24 @@ const getFontSize = (
   }
 };
 
-const CustomText: FC<Props> = ({ children, bold, color, size, ...rest }) => {
+const CustomText: FC<Props> = ({
+  children,
+  bold,
+  color,
+  size,
+  style,
+  ...rest
+}) => {
   const fontSize = getFontSize(size);
 
   return (
-    <StyledText bold={bold} color={color} fontSize={fontSize} {...rest}>
+    <StyledText
+      style={style}
+      bold={bold}
+      color={color}
+      fontSize={fontSize}
+      {...rest}
+    >
       {children}
     </StyledText>
   );

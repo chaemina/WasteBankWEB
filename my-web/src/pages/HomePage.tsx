@@ -6,10 +6,12 @@ import HomeButton from "../components/common/molecules/HomeButton";
 const HomePage: React.FC = () => {
   return (
     <Container>
-      <div style={{ alignItems: "center" }}>
-        <Header name="Fasten Julio Akbar" />
-        <HomeButton />
-      </div>
+      <Header
+        name="Fasten Julio Akbar"
+        backgroundColor="#40892d"
+        color="white"
+      />
+      <HomeButton role="user" />
     </Container>
   );
 };

@@ -3,13 +3,13 @@ import icon_empty_star from "../../../assets/images/icon_empty_star.svg";
 import CustomText from "../../common/atoms/CustomText";
 import styled from "styled-components";
 import { useState } from "react";
+import { scale } from "../../../utils/Scale";
 
 const RatingContainer = styled.div`
   display: flex;
   width: 100%;
-  height: 120px;
+  height: ${scale(200)}px;
   background-color: #40892d;
-
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -19,11 +19,12 @@ const RatingNum = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: ${scale(20)}px;
 `;
 
 const StarBtn = styled.button`
-  width: 50px;
-  height: 50px;
+  display: flex;
+  flex: 1;
   background: none;
   border-radius: 15px;
   border: none;
@@ -33,6 +34,7 @@ const RatingStarBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: ${scale(10)}px;
 `;
 
 type RatingProps = {
@@ -63,11 +65,8 @@ const RatingBox = () => {
   return (
     <RatingContainer>
       <RatingNum>
-        <CustomText color="white" size="body">
-          Rating{" "}
-        </CustomText>
-        <CustomText color="white" size="body">
-          {rating}/5
+        <CustomText color="white" size="title" bold>
+          Rating {rating} / 5
         </CustomText>
       </RatingNum>
       <RatingStar rating={rating} setRating={setRating} />
