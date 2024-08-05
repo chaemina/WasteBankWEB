@@ -22,12 +22,10 @@ const HomePage: React.FC = () => {
 
   return (
     <Container>
-      {info && (
-        <>
-          <Header name={info.name} backgroundColor="#40892d" color="white" />
-          <HomeButton role={info.role} />
-        </>
-      )}
+      <>
+        <Header name="Gyeongmin" backgroundColor="#40892d" color="white" />
+        <HomeButton role="user" />
+      </>
     </Container>
   );
 };
