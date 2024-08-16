@@ -44,7 +44,7 @@ const fetchScheduleData = async ({ pageParam = 1 }) => {
 const ScheduleList: React.FC<ScheduleListProps> = ({ filterMatched }) => {
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery(["scheduleData", filterMatched], fetchScheduleData, {
-      getNextPageParam: (lastPage) => lastPage.nextPage,
+      getNextPageParam: (lastPage) => lastPage.nextPage, // 하나의 인수만 받아야 합니다.
     });
 
   // 커스텀 훅 사용
