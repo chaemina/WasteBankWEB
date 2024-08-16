@@ -5,7 +5,7 @@ import { verticalScale } from "../../../utils/Scale";
 import { instance } from "../../../apis/instance";
 import Spinner from "../../common/atoms/Spinner";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useIntersectionObserver } from "./useIntersectionObserver"; // 훅을 가져옵니다.
+import { useIntersectionObserver } from "../../../hooks/useIntersectionObserver";
 
 const ScheduleContainer = styled.div`
   display: flex;
@@ -27,7 +27,8 @@ type ScheduleListProps = {
   filterMatched: boolean;
 };
 
-const fetchScheduleData = async ({ pageParam = 1 }) => {
+// fetchScheduleData 함수의 반환 타입 정의
+const fetchScheduleData = async ({ pageParam = 1 }: { pageParam?: number }) => {
   const response = await instance.get(
     `/api/garbages/registered?page=${pageParam}&limit=5`
   );
@@ -43,11 +44,12 @@ const fetchScheduleData = async ({ pageParam = 1 }) => {
 
 const ScheduleList: React.FC<ScheduleListProps> = ({ filterMatched }) => {
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteQuery(["scheduleData", filterMatched], fetchScheduleData, {
-      getNextPageParam: (lastPage) => lastPage.nextPage, // 하나의 인수만 받아야 합니다.
+    useInfiniteQuery({
+      queryKey: ["scheduleData", filterMatched],
+      queryFn: fetchScheduleData,
+      getNextPageParam: (lastPage) => lastPage.nextPage,
     });
 
-  // 커스텀 훅 사용
   const { setTarget } = useIntersectionObserver({
     threshold: 0.1,
     hasNextPage,

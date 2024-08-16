@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { InfiniteQueryObserverResult } from "@tanstack/react-query";
 
 interface IuseIntersectionObserverProps {
   threshold?: number;
   hasNextPage: boolean | undefined;
-  fetchNextPage: () => Promise<InfiniteQueryObserverResult>;
+  fetchNextPage: () => void; // 수정된 부분: Promise<void>를 반환합니다.
 }
 
 export const useIntersectionObserver = ({
@@ -12,7 +11,7 @@ export const useIntersectionObserver = ({
   hasNextPage,
   fetchNextPage,
 }: IuseIntersectionObserverProps) => {
-  const [target, setTarget] = useState<HTMLDivElement | null | undefined>(null);
+  const [target, setTarget] = useState<HTMLDivElement | null>(null); // 수정된 부분: HTMLDivElement | null
 
   const observerCallback: IntersectionObserverCallback = (entries) => {
     entries.forEach((entry) => {
