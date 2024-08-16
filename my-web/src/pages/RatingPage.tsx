@@ -6,11 +6,13 @@ import { Wrapper } from "../components/common/atoms/ButtonContainer";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { instance } from "../apis/instance";
+import Spinner from "../components/common/atoms/Spinner";
 
 const RatingPage: React.FC = () => {
   const { params } = useParams<{ params: string }>();
   const [collector, setCollector] = useState("");
   const [garbageId, setGarbageId] = useState<number>(-1);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,11 +31,17 @@ const RatingPage: React.FC = () => {
         } catch (error) {
           console.error(error);
           console.log(id);
+        } finally {
+          setLoading(false);
         }
       }
     };
     fetchData();
   }, [params]);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <Container>

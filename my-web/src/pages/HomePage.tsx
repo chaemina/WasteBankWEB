@@ -4,11 +4,13 @@ import Container from "../components/common/atoms/Container";
 import Header from "../components/common/molecules/Header";
 import HomeButton from "../components/common/molecules/HomeButton";
 import { instance } from "../apis/instance";
+import Spinner from "../components/common/atoms/Spinner";
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
   const { role } = useParams<{ role: string }>();
-  const [name, setName] = useState<string>("");
+  const [name, setName] = useState<string | null>(null);
   const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,17 +20,25 @@ const HomePage = () => {
           setName(response.data.response.name);
         } else {
           setError(response.data.error);
+          console.log(error);
         }
       } catch (error) {
-        console.error(error);
+        console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
+
     fetchData();
-  }, []);
+  }, [name]);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <Container>
-      <Header name={name} backgroundColor="#40892d" color="white" />
+      <Header name={name || ""} backgroundColor="#40892d" color="white" />
       <HomeButton role={role} />
     </Container>
   );
