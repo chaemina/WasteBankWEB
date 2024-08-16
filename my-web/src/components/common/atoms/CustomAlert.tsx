@@ -27,6 +27,7 @@ const AlertBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
   padding: ${scale(20)}px;
   gap: ${scale(15)}px;
 `;
@@ -45,16 +46,18 @@ const Spacer = styled.div`
 
 export type AlertProps = {
   title: string;
-  text: string;
+  text?: string;
   visible: boolean;
-  onClose: () => void;
+  onClickOkay: () => void;
+  onClickNo: () => void;
 };
 
 const CustomAlert: React.FC<AlertProps> = ({
   title,
   text,
   visible,
-  onClose,
+  onClickOkay,
+  onClickNo,
 }) => {
   if (!visible) return null;
 
@@ -71,7 +74,7 @@ const CustomAlert: React.FC<AlertProps> = ({
           <CustomButton
             size="xs"
             label="Okay"
-            onClick={onClose}
+            onClick={onClickOkay}
             color="#40892d"
           />
           <Spacer />
@@ -79,7 +82,7 @@ const CustomAlert: React.FC<AlertProps> = ({
             size="xs"
             style={{ border: "3px solid #40892d" }}
             label="No"
-            onClick={onClose}
+            onClick={onClickNo}
             color="white"
           />
         </AlertButtonContainer>

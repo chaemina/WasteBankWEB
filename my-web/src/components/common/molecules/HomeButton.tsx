@@ -8,23 +8,25 @@ import icon_location from "../../../assets/images/icon_location.svg";
 import { scale, verticalScale } from "../../../utils/Scale";
 
 type HomeButtonProps = {
-  role: string;
+  role: string | undefined;
 };
 
-const OuterContainer = styled.div`
+const OuterContainer = styled.div<HomeButtonProps>`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  margin-top: ${verticalScale(100)}px;
+  margin-top: ${({ role }) =>
+    role === "user" ? verticalScale(100) : verticalScale(150)}px;
 `;
 
 const ButtonContainer = styled.div<HomeButtonProps>`
   display: grid;
   box-sizing: border-box;
   gap: ${scale(20)}px;
+  flex-wrap: wrap;
 
   ${({ role }) =>
     role === "user" &&
@@ -32,25 +34,23 @@ const ButtonContainer = styled.div<HomeButtonProps>`
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
   `}
-
   ${({ role }) =>
     role === "collector" &&
     `
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr;
   `}
-
-  ${({ role }) =>
+    ${({ role }) =>
     role === "admin" &&
     `
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
-  `}
+  `};
 `;
 
 const HomeButton: React.FC<HomeButtonProps> = ({ role }) => {
   return (
-    <OuterContainer>
+    <OuterContainer role={role}>
       <ButtonContainer role={role}>
         {role === "user" && (
           <>

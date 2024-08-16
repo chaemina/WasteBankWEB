@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import ScheduleItem from "../atoms/ScheduleItem";
 import { verticalScale } from "../../../utils/Scale";
+import { instance } from "../../../apis/instance";
 
 const ScheduleContainer = styled.div`
   display: flex;
@@ -11,30 +12,50 @@ const ScheduleContainer = styled.div`
   gap: ${verticalScale(15)}px;
 `;
 
-const scheduleData = [
-  { day: "Monday", collector_name: "Collector A", done: true },
-  { day: "Tuesday", collector_name: "Collector B", done: false },
-  { day: "Wednesday", collector_name: "Collector C", done: false },
-  { day: "Thursday", collector_name: "Collector D", done: false },
-  { day: "Friday", collector_name: "Collector E", done: false },
-];
-
-type ScheduleListProps = {
-  search?: boolean;
-  accept?: boolean;
+type GarbageData = {
+  garbageId: number;
+  matched: boolean;
+  collectorName: string;
+  collectionDayOfWeek: string;
+  collectionStatus: "수거 시작 전" | "수거중" | "수거 완료";
 };
 
-const ScheduleList: React.FC<ScheduleListProps> = ({ search, accept }) => {
+type ScheduleListProps = {
+  filterMatched: boolean;
+};
+
+const ScheduleList: React.FC<ScheduleListProps> = ({ filterMatched }) => {
+  const [scheduleData, setScheduleData] = useState<GarbageData[]>([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await instance.get("/api/garbages/registered");
+        if (response.data.success) {
+          let data: GarbageData[] = response.data.response;
+          if (filterMatched) {
+            data = data.filter((item) => item.matched);
+          }
+          setScheduleData(data);
+        } else {
+          console.log(response.data.error);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getData();
+  }, [filterMatched]);
+
   return (
     <ScheduleContainer>
-      {scheduleData.map((item, index) => (
+      {scheduleData.map((item) => (
         <ScheduleItem
-          key={index}
-          day={item.day}
-          collector_name={item.collector_name}
-          done={item.done}
-          search={search}
-          accept={accept}
+          key={item.garbageId}
+          garbageId={item.garbageId}
+          day={item.collectionDayOfWeek}
+          collector={item.collectorName}
+          status={item.collectionStatus}
         />
       ))}
     </ScheduleContainer>

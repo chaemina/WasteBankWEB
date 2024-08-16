@@ -2,8 +2,13 @@ import icon_fill_star from "../../../assets/images/icon_fill_star.svg";
 import icon_empty_star from "../../../assets/images/icon_empty_star.svg";
 import CustomText from "../../common/atoms/CustomText";
 import styled from "styled-components";
-import { useState } from "react";
+import React, { useState } from "react";
+import { instance } from "../../../apis/instance";
 import { scale } from "../../../utils/Scale";
+import { ButtonContainer } from "../../common/atoms/ButtonContainer";
+import CustomButton from "../../common/atoms/CustomButton";
+import CustomAlert from "../../common/atoms/CustomAlert";
+import { useNavigate } from "react-router-dom";
 
 const RatingContainer = styled.div`
   display: flex;
@@ -59,18 +64,60 @@ const RatingStar: React.FC<RatingProps> = ({ rating, setRating }) => {
   );
 };
 
-const RatingBox = () => {
+type RatingBoxProps = {
+  garbageId: number;
+};
+
+const RatingBox: React.FC<RatingBoxProps> = ({ garbageId }) => {
+  const nav = useNavigate();
   const [rating, setRating] = useState(0);
+  const [alert, setAlert] = useState(false);
+
+  const onClickDone = () => {
+    setAlert(true);
+  };
+
+  const onClickOkay = async () => {
+    try {
+      const response = await instance.post(
+        `/api/garbages/${garbageId}/rating`,
+        { rating }
+      );
+      if (response.data.success) {
+        setAlert(false);
+        nav("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onClickNo = () => {
+    setAlert(false);
+  };
 
   return (
-    <RatingContainer>
-      <RatingNum>
-        <CustomText color="white" size="title" bold>
-          Rating {rating} / 5
-        </CustomText>
-      </RatingNum>
-      <RatingStar rating={rating} setRating={setRating} />
-    </RatingContainer>
+    <>
+      <RatingContainer>
+        <RatingNum>
+          <CustomText color="white" size="title" bold>
+            Rating {rating} / 5
+          </CustomText>
+        </RatingNum>
+        <RatingStar rating={rating} setRating={setRating} />
+      </RatingContainer>
+      <ButtonContainer>
+        <CustomButton label="Done" size="sm" rounded onClick={onClickDone} />
+      </ButtonContainer>
+      {alert && (
+        <CustomAlert
+          title="Do you want to submit it?"
+          visible={alert}
+          onClickOkay={onClickOkay}
+          onClickNo={onClickNo}
+        />
+      )}
+    </>
   );
 };
 

@@ -1,31 +1,35 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Container from "../components/common/atoms/Container";
 import Header from "../components/common/molecules/Header";
 import HomeButton from "../components/common/molecules/HomeButton";
 import { instance } from "../apis/instance";
 
-const HomePage: React.FC = () => {
-  const [info, setInfo] = useState({ role: "", name: "" });
+const HomePage = () => {
+  const { role } = useParams<{ role: string }>();
+  const [name, setName] = useState<string>("");
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
-    const fetchInfo = async () => {
+    const fetchData = async () => {
       try {
-        const response = await instance.get(`api/home`);
-        setInfo(response.data.body);
-        console.log(response);
-      } catch (e) {
-        console.log(e);
+        const response = await instance.get("/api/home");
+        if (response.data.success) {
+          setName(response.data.response.name);
+        } else {
+          setError(response.data.error);
+        }
+      } catch (error) {
+        console.error(error);
       }
     };
-    fetchInfo();
+    fetchData();
   }, []);
 
   return (
     <Container>
-      <>
-        <Header name="Gyeongmin" backgroundColor="#40892d" color="white" />
-        <HomeButton role="user" />
-      </>
+      <Header name={name} backgroundColor="#40892d" color="white" />
+      <HomeButton role={role} />
     </Container>
   );
 };
