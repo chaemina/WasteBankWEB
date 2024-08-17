@@ -14,7 +14,7 @@ const PickupPage = () => {
         <Identification
           style={{ marginTop: `${verticalScale(20)}px` }}
           role="user"
-          title="Waste collection schedule"
+          title="Jadwal pengambilan sampah"
         />
         <ListContainer>
           <ScheduleList filterMatched={false} />
