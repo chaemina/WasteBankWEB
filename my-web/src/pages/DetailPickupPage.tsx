@@ -6,6 +6,10 @@ import CustomButton from "../components/common/atoms/CustomButton";
 import icon_pickup from "../assets/images/icon_pickup.svg";
 import Header from "../components/common/molecules/Header";
 import { scale, verticalScale } from "../utils/Scale";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { instance } from "../apis/instance";
+import Spinner from "../components/common/atoms/Spinner";
 
 const KonfirmButton = styled(CustomButton)`
   display: flex;
@@ -16,7 +20,45 @@ const KonfirmButton = styled(CustomButton)`
 `;
 
 const DetailPickupPage = () => {
+  const { params } = useParams<{ params: string }>();
+  const [collector, setCollector] = useState("");
+  const [garbageId, setGarbageId] = useState<number>(-1);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      if (params) {
+        const id = parseInt(params, 10);
+        if (!isNaN(id)) {
+          setGarbageId(id);
+        }
+      }
+    };
+    fetchData();
+  }, [params]);
+
+  useEffect(() => {
+    const fetchCollectorInfo = async () => {
+      if (garbageId !== null) {
+        try {
+          const response = await instance.get(
+            `/api/garbages/${garbageId}/collectorInfo`
+          );
+          if (response.data.success) {
+            setCollector(response.data.response.collectorName);
+          }
+        } catch (error) {
+          console.error(error);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
+      }
+    };
+
+    fetchCollectorInfo();
+  }, [garbageId]);
 
   const handleButtonClick = () => {
     if (window.ReactNativeWebView) {
@@ -27,24 +69,30 @@ const DetailPickupPage = () => {
   return (
     <Container>
       <Header title="Detail Pick-up" />
-      <CustomText
-        style={{ marginBottom: `${verticalScale(15)}px` }}
-        bold
-        size="body"
-      >
-        Petugas:
-      </CustomText>
-      <Identification
-        style={{ marginBottom: `${verticalScale(15)}px` }}
-        role="collector"
-        name="Shizuki yanto"
-      />
-      <KonfirmButton size="lg" onClick={handleButtonClick}>
-        <img src={icon_pickup} style={{ width: `${scale(80)}px` }} />
-        <CustomText color="white" size="body" bold>
-          Konfirmasi
-        </CustomText>
-      </KonfirmButton>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <>
+          <CustomText
+            style={{ marginBottom: `${verticalScale(15)}px` }}
+            bold
+            size="body"
+          >
+            Petugas:
+          </CustomText>
+          <Identification
+            style={{ marginBottom: `${verticalScale(15)}px` }}
+            role="collector"
+            name={collector}
+          />
+          <KonfirmButton size="lg" onClick={handleButtonClick}>
+            <img src={icon_pickup} style={{ width: `${scale(80)}px` }} />
+            <CustomText color="white" size="body">
+              Konfirmasi
+            </CustomText>
+          </KonfirmButton>
+        </>
+      )}
     </Container>
   );
 };

@@ -9,7 +9,10 @@ import { scale, verticalScale } from "../../../utils/Scale";
 type RegisterProps = {
   sampah_type: string;
   rp: number;
-  onInputChange?: (value: string) => void;
+};
+
+type RegisterContentProps = RegisterProps & {
+  onInputChange: (value: string) => void;
 };
 
 const RegisterContainer = styled.div`
@@ -49,7 +52,7 @@ const SampahDetail: React.FC<RegisterProps> = ({ sampah_type, rp }) => {
   );
 };
 
-const SampahWeight: React.FC<{ onChange?: (value: string) => void }> = ({
+const SampahWeight: React.FC<{ onChange: (value: string) => void }> = ({
   onChange,
 }) => {
   return (
@@ -62,7 +65,7 @@ const SampahWeight: React.FC<{ onChange?: (value: string) => void }> = ({
   );
 };
 
-const RegisterContent: React.FC<RegisterProps> = ({
+const RegisterContent: React.FC<RegisterContentProps> = ({
   sampah_type,
   rp,
   onInputChange,
@@ -76,9 +79,10 @@ const RegisterContent: React.FC<RegisterProps> = ({
   );
 };
 
-const Register: React.FC<{ onInputChange?: (value: string) => void }> = ({
-  onInputChange,
-}) => {
+const Register: React.FC<{
+  onOrganikChange: (value: string) => void;
+  onNonOrganikChange: (value: string) => void;
+}> = ({ onOrganikChange, onNonOrganikChange }) => {
   return (
     <div
       style={{
@@ -88,12 +92,12 @@ const Register: React.FC<{ onInputChange?: (value: string) => void }> = ({
       <RegisterContent
         sampah_type="Sampah organik"
         rp={60}
-        onInputChange={onInputChange}
+        onInputChange={onOrganikChange}
       />
       <RegisterContent
         sampah_type="Sampah non-organik"
         rp={80}
-        onInputChange={onInputChange}
+        onInputChange={onNonOrganikChange}
       />
     </div>
   );

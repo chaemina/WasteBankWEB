@@ -13,7 +13,7 @@ const ItemContainer = styled.div`
   border-radius: 20px;
 `;
 
-const SearchButton = styled.button`
+const SearchBtn = styled.button`
   width: ${scale(40)}px;
   height: ${scale(40)}px;
   background-color: white;
@@ -46,19 +46,17 @@ const StarBtn = styled.button`
 `;
 
 type ScheduleItemProps = {
+  garbageId: number;
   day: string;
-  collector_name: string;
-  search?: boolean;
-  done?: boolean;
-  accept?: boolean;
+  collector: string;
+  status: "수거 시작 전" | "수거중" | "수거 완료";
 };
 
 const ScheduleItem: React.FC<ScheduleItemProps> = ({
+  garbageId,
   day,
-  collector_name,
-  search,
-  done,
-  accept,
+  collector,
+  status,
 }) => {
   const nav = useNavigate();
 
@@ -68,21 +66,21 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({
         <CustomText color="white" bold={true} size="title">
           {day}
         </CustomText>
-        {accept && done ? (
-          <StarBtn onClick={() => nav(`/rating`)}>
+        {status === "수거 완료" ? (
+          <StarBtn onClick={() => nav(`/rating/${garbageId}`)}>
             <img width="100%" src={icon_fill_star} />
           </StarBtn>
         ) : (
-          search && (
-            <SearchButton onClick={() => nav(`/detailpickup`)}>
+          status === "수거중" && (
+            <SearchBtn onClick={() => nav(`/detailpickup/${garbageId}`)}>
               <img style={{ width: "100%" }} src={icon_search} />
-            </SearchButton>
+            </SearchBtn>
           )
         )}
       </DayContainer>
       <CollectorInfo>
         <CircleImage width={30} height={30} role="collector" />
-        <CustomText color="white">{collector_name}</CustomText>
+        <CustomText color="white">{collector}</CustomText>
       </CollectorInfo>
     </ItemContainer>
   );

@@ -17,7 +17,7 @@ const PickupPage = () => {
           title="Waste collection schedule"
         />
         <ListContainer>
-          <ScheduleList search={true} accept={true} />
+          <ScheduleList filterMatched={false} />
         </ListContainer>
       </ScrollableContainer>
     </Container>

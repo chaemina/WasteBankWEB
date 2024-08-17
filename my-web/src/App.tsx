@@ -12,14 +12,14 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/:role" element={<HomePage />} />
         <Route path="/garbagebin" element={<GarbagebinPage />} />
         <Route path="/pickup" element={<PickupPage />} />
         <Route path="/schedule" element={<SchedulePage />} />
         <Route path="/mysaving" element={<MySavingPage />} />
-        <Route path="/rating" element={<RatingPage />} />
+        <Route path="/rating/:garbageId" element={<RatingPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/detailpickup" element={<DetailPickupPage />} />
+        <Route path="/detailpickup/:garbageId" element={<DetailPickupPage />} />
       </Routes>
     </>
   );
