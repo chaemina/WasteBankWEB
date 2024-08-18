@@ -55,6 +55,12 @@ const LoginForm = () => {
     }
   };
 
+  const handleLoginNavigation = () => {
+    if (window.ReactNativeWebView) {
+      window.ReactNativeWebView.postMessage("Main");
+    }
+  };
+
   const nav = useNavigate();
 
   const [email, setEmail] = useState<string>("");
@@ -67,7 +73,8 @@ const LoginForm = () => {
       if (response.data.success) {
         const { token, role } = response.data.response;
         localStorage.setItem("auth", token);
-        nav(`/${role}`);
+
+        handleLoginNavigation();
       } else {
         setError("ID atau kata sandi yang Anda masukkan salah.");
       }
