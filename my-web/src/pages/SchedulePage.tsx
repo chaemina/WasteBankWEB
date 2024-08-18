@@ -13,7 +13,7 @@ const SchedulePage = () => {
       <ScrollableContainer>
         <Identification
           role="user"
-          title="Garbage collection schedule"
+          title="Jadwal pengambilan sampah"
           style={{ marginTop: `${verticalScale(20)}px` }}
         />
         <ListContainer>

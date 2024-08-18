@@ -111,7 +111,7 @@ const RatingBox: React.FC<RatingBoxProps> = ({ garbageId }) => {
       </ButtonContainer>
       {alert && (
         <CustomAlert
-          title="Do you want to submit it?"
+          title="Kau ingin menyerahkannya?"
           visible={alert}
           onClickOkay={onClickOkay}
           onClickNo={onClickNo}
