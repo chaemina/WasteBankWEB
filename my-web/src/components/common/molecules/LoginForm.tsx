@@ -69,10 +69,10 @@ const LoginForm = () => {
         localStorage.setItem("auth", token);
         nav(`/${role}`);
       } else {
-        setError("error");
+        setError("ID atau kata sandi yang Anda masukkan salah.");
       }
     } catch (error) {
-      setError("The ID or password you entered is incorrect.");
+      setError("ID atau kata sandi yang Anda masukkan salah.");
       console.log(error);
     }
   };

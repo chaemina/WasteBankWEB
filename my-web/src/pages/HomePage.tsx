@@ -1,23 +1,31 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Container from "../components/common/atoms/Container";
 import Header from "../components/common/molecules/Header";
 import HomeButton from "../components/common/molecules/HomeButton";
 import { instance } from "../apis/instance";
 import Spinner from "../components/common/atoms/Spinner";
+import CustomButton from "../components/common/atoms/CustomButton";
 
 const HomePage: React.FC = () => {
-  const { role } = useParams<{ role: string }>();
-  const [name, setName] = useState<string | null>(null);
+  const [name, setName] = useState<string>("");
+  const [role, setRole] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
+  const nav = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem("auth");
+    if (!token) {
+      nav("/login");
+    }
     const fetchData = async () => {
       try {
         const response = await instance.get("/api/home");
         if (response.data.success) {
           setName(response.data.response.name);
+          setRole(response.data.response.role);
+          localStorage.setItem("role", response.data.response.role);
         } else {
           setError(response.data.error);
           console.log(error);
@@ -30,7 +38,13 @@ const HomePage: React.FC = () => {
     };
 
     fetchData();
-  }, [name]);
+  }, [nav]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("auth");
+    localStorage.removeItem("role");
+    nav("/login");
+  };
 
   if (loading) {
     return <Spinner />;
@@ -38,7 +52,12 @@ const HomePage: React.FC = () => {
 
   return (
     <Container>
-      <Header name={name || ""} backgroundColor="#40892d" color="white" />
+      <Header
+        onClickLogout={handleLogout}
+        name={name}
+        backgroundColor="#40892d"
+        color="white"
+      />
       <HomeButton role={role} />
     </Container>
   );
