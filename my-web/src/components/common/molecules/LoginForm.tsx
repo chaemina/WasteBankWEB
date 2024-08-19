@@ -51,16 +51,15 @@ const LoginForm = () => {
 
   const handleSignUpClick = () => {
     if (window.ReactNativeWebView) {
-      window.ReactNativeWebView.postMessage("Signup");
+      const message = JSON.stringify({
+        type: "NAVIGATE",
+        destination: "Signup",
+      });
+      window.ReactNativeWebView.postMessage(message);
     }
   };
 
-  const handleLoginNavigation = () => {
-    if (window.ReactNativeWebView) {
-      window.ReactNativeWebView.postMessage("Main");
-    }
-  };
-
+  
   const nav = useNavigate();
 
   const [email, setEmail] = useState<string>("");
@@ -74,7 +73,14 @@ const LoginForm = () => {
         const { token, role } = response.data.response;
         localStorage.setItem("auth", token);
 
-        handleLoginNavigation();
+        if (window.ReactNativeWebView) {
+          const message = JSON.stringify({
+            type: "TOKEN",
+            token: token,
+          });
+          window.ReactNativeWebView.postMessage(message);
+        }
+        
       } else {
         setError("ID atau kata sandi yang Anda masukkan salah.");
       }
