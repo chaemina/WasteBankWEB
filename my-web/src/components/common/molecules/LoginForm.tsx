@@ -53,7 +53,7 @@ const LoginForm = () => {
     if (window.ReactNativeWebView) {
       const message = JSON.stringify({
         type: "NAVIGATE",
-        destination: "Signup",
+        destination: "RoleSelect",
       });
       window.ReactNativeWebView.postMessage(message);
     }
