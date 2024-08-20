@@ -39,7 +39,7 @@ const GarbagebinPage: React.FC = () => {
         non_organicWeight: nonOrganikWeight,
       });
       setAlert(false);
-      nav(-1);
+      nav("/");
     } catch (error) {
       console.log(error);
     }

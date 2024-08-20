@@ -2,13 +2,12 @@ import { instance } from "./instance";
 
 export type GarbageData = {
   garbageId: number;
-  matched: boolean;
-  collectorName: string;
-  collectionDayOfWeek: string;
-  collectionStatus: "수거 시작 전" | "수거중" | "수거 완료";
+  organik: number,
+  non_organik: number,
+  saving: number
 };
 
-export type ScheduleResponse = {
+export type GarbageResponse = {
   response: {
     data: GarbageData[];
     isLast: boolean;
@@ -16,11 +15,11 @@ export type ScheduleResponse = {
   };
 };
 
-export const fetchScheduleData = async (page: number): Promise<ScheduleResponse> => {
+export const fetchGarbageData = async (page: number): Promise<GarbageResponse> => {
   try {
     const res = await instance.get(`/api/garbages/registered?page=${page}`);
     console.log(res.data);
-    return res.data as ScheduleResponse;
+    return res.data as GarbageResponse;
   } catch (error: any) {
     console.error(error);
     throw new Error(error?.response?.data?.error || "Error fetching data");

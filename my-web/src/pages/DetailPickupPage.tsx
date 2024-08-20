@@ -20,32 +20,23 @@ const KonfirmButton = styled(CustomButton)`
 `;
 
 const DetailPickupPage = () => {
-  const { params } = useParams<{ params: string }>();
-  const [collector, setCollector] = useState("");
-  const [garbageId, setGarbageId] = useState<number>(-1);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (params) {
-        const id = parseInt(params, 10);
-        if (!isNaN(id)) {
-          setGarbageId(id);
-        }
-      }
-    };
-    fetchData();
-  }, [params]);
+  const { garbageId } = useParams<{ garbageId: string }>();
+  const [collector, setCollector] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchCollectorInfo = async () => {
-      if (garbageId !== null) {
+      if (garbageId) {
         try {
-          const response = await instance.get(
-            `/api/garbages/${garbageId}/collectorInfo`
-          );
-          if (response.data.success) {
-            setCollector(response.data.response.collectorName);
+          const id = parseInt(garbageId, 10);
+          if (!isNaN(id)) {
+            const response = await instance.get(
+              `/api/garbages/${id}/collectorInfo`
+            );
+            if (response.data.success) {
+              console.log(response.data);
+              setCollector(response.data.response);
+            }
           }
         } catch (error) {
           console.error(error);
@@ -56,7 +47,6 @@ const DetailPickupPage = () => {
         setLoading(false);
       }
     };
-
     fetchCollectorInfo();
   }, [garbageId]);
 

@@ -81,7 +81,7 @@ const RatingBox: React.FC<RatingBoxProps> = ({ garbageId }) => {
     try {
       const response = await instance.post(
         `/api/garbages/${garbageId}/rating`,
-        { rating }
+        { score: rating }
       );
       if (response.data.success) {
         setAlert(false);

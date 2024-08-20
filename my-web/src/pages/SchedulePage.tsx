@@ -2,10 +2,10 @@ import {
   ScrollableContainer,
   ListContainer,
 } from "../components/user/organisms/ScrollContainer";
-import ScheduleList from "../components/user/molecules/ScheduleList";
 import Container from "../components/common/atoms/Container";
 import Identification from "../components/common/molecules/Identification";
 import { verticalScale } from "../utils/Scale";
+import GarbageList from "../components/user/molecules/GarbageList";
 
 const SchedulePage = () => {
   return (
@@ -13,11 +13,11 @@ const SchedulePage = () => {
       <ScrollableContainer>
         <Identification
           role="user"
-          title="Jadwal pengambilan sampah"
+          title="Daftar sampah terdaftar"
           style={{ marginTop: `${verticalScale(20)}px` }}
         />
         <ListContainer>
-          <ScheduleList filterMatched={true} />
+          <GarbageList />
         </ListContainer>
       </ScrollableContainer>
     </Container>
