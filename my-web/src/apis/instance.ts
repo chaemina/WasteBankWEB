@@ -19,8 +19,13 @@ instance.interceptors.request.use(
 );
 
 instance.interceptors.response.use(
-  (config) => {
-    return config;
+  (response) => {
+    // 응답 헤더에서 토큰을 추출하여 로컬 스토리지에 저장
+    const token = response.headers['authorization'];
+    if (token) {
+      localStorage.setItem("auth", token);
+    }
+    return response;
   },
   (error) => {
     return Promise.reject(error);

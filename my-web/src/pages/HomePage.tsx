@@ -5,7 +5,7 @@ import Header from "../components/common/molecules/Header";
 import HomeButton from "../components/common/molecules/HomeButton";
 import { instance } from "../apis/instance";
 import Spinner from "../components/common/atoms/Spinner";
-import CustomButton from "../components/common/atoms/CustomButton";
+import Footer from "../components/common/atoms/Footer";
 
 const HomePage: React.FC = () => {
   const [name, setName] = useState<string>("");
@@ -50,8 +50,6 @@ const HomePage: React.FC = () => {
       });
       window.ReactNativeWebView.postMessage(message);
     }
-  
-
   };
 
   if (loading) {
@@ -60,13 +58,9 @@ const HomePage: React.FC = () => {
 
   return (
     <Container>
-      <Header
-        onClickLogout={handleLogout}
-        name={name}
-        backgroundColor="#40892d"
-        color="white"
-      />
+      <Header name={name} backgroundColor="#40892d" color="white" />
       <HomeButton role={role} />
+      <Footer onClickLogout={handleLogout} />
     </Container>
   );
 };

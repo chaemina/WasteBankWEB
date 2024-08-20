@@ -9,14 +9,17 @@ export type GarbageData = {
 };
 
 export type ScheduleResponse = {
-  response: GarbageData[];
-  isLast: boolean;
-  nextPage?: number;
+  response: {
+    data: GarbageData[];
+    isLast: boolean;
+    nextPage: number;
+  };
 };
 
 export const fetchScheduleData = async (page: number): Promise<ScheduleResponse> => {
   try {
     const res = await instance.get(`/api/garbages/registered?page=${page}`);
+    console.log(res.data);
     return res.data as ScheduleResponse;
   } catch (error: any) {
     console.error(error);

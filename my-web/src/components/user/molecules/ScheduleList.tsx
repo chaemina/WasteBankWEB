@@ -2,7 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import ScheduleItem from "../atoms/ScheduleItem";
-import { fetchScheduleData, GarbageData, ScheduleResponse } from "../../../apis/schedule";
+import {
+  fetchScheduleData,
+  GarbageData,
+  ScheduleResponse,
+} from "../../../apis/schedule";
 import { useIntersectionObserver } from "../../../hooks/useIntersectionObserver";
 import { scale, verticalScale } from "../../../utils/Scale";
 
@@ -19,21 +23,20 @@ const Loader = styled.div`
   color: white;
 `;
 
-const ScheduleList: React.FC = () => {
+type ScheduleListProps = {
+  read: boolean;
+};
 
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isLoading,
-    isError,
-    error,
-  } = useInfiniteQuery<ScheduleResponse, Error>({
-    queryKey: ["scheduleList"],
-    queryFn: async ({ pageParam = 1 }) => fetchScheduleData(pageParam as number),
-    getNextPageParam: (lastPage) => lastPage.isLast ? undefined : lastPage.nextPage,
-    initialPageParam: 1, 
-  });
+const ScheduleList: React.FC<ScheduleListProps> = ({ read }) => {
+  const { data, fetchNextPage, hasNextPage, isLoading, isError, error } =
+    useInfiniteQuery<ScheduleResponse, Error>({
+      queryKey: ["scheduleList"],
+      queryFn: async ({ pageParam = 1 }) =>
+        fetchScheduleData(pageParam as number),
+      getNextPageParam: (lastPage) =>
+        lastPage.response.isLast ? undefined : lastPage.response.nextPage,
+      initialPageParam: 1,
+    });
 
   const { setTarget } = useIntersectionObserver({
     threshold: 0.1,
@@ -41,20 +44,20 @@ const ScheduleList: React.FC = () => {
     fetchNextPage,
   });
 
-
   if (isLoading) return <Loader>Loading...</Loader>;
   if (isError) return <Loader>Error: {(error as Error).message}</Loader>;
 
   return (
     <ListContainer>
       {data?.pages.flatMap((page) =>
-        page.response.map((schedule: GarbageData) => (
+        page.response.data.map((schedule: GarbageData) => (
           <ScheduleItem
             key={schedule.garbageId}
             garbageId={schedule.garbageId}
             day={schedule.collectionDayOfWeek}
             collector={schedule.collectorName}
             status={schedule.collectionStatus}
+            read={read}
           />
         ))
       )}

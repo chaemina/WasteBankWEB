@@ -17,7 +17,7 @@ const SchedulePage = () => {
           style={{ marginTop: `${verticalScale(20)}px` }}
         />
         <ListContainer>
-          <ScheduleList filterMatched={true} />
+          <ScheduleList read={true} />
         </ListContainer>
       </ScrollableContainer>
     </Container>

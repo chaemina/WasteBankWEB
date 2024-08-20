@@ -50,6 +50,7 @@ type ScheduleItemProps = {
   day: string;
   collector: string;
   status: "수거 시작 전" | "수거중" | "수거 완료";
+  read: boolean;
 };
 
 const ScheduleItem: React.FC<ScheduleItemProps> = ({
@@ -57,6 +58,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({
   day,
   collector,
   status,
+  read,
 }) => {
   const nav = useNavigate();
 
@@ -66,16 +68,20 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({
         <CustomText color="white" bold={true} size="title">
           {day}
         </CustomText>
-        {status === "수거 완료" ? (
-          <StarBtn onClick={() => nav(`/rating/${garbageId}`)}>
-            <img width="100%" src={icon_fill_star} />
-          </StarBtn>
-        ) : (
-          status === "수거중" && (
-            <SearchBtn onClick={() => nav(`/detailpickup/${garbageId}`)}>
-              <img style={{ width: "100%" }} src={icon_search} />
-            </SearchBtn>
-          )
+        {read && (
+          <>
+            {status === "수거 완료" ? (
+              <StarBtn onClick={() => nav(`/rating/${garbageId}`)}>
+                <img width="100%" src={icon_fill_star} />
+              </StarBtn>
+            ) : (
+              status === "수거중" && (
+                <SearchBtn onClick={() => nav(`/detailpickup/${garbageId}`)}>
+                  <img style={{ width: "100%" }} src={icon_search} />
+                </SearchBtn>
+              )
+            )}
+          </>
         )}
       </DayContainer>
       <CollectorInfo>

@@ -59,9 +59,6 @@ const LoginForm = () => {
     }
   };
 
-  
-  const nav = useNavigate();
-
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
@@ -70,7 +67,7 @@ const LoginForm = () => {
     try {
       const response = await instance.post("/api/login", { email, password });
       if (response.data.success) {
-        const { token, role } = response.data.response;
+        const { token } = response.data.response;
         localStorage.setItem("auth", token);
 
         if (window.ReactNativeWebView) {
@@ -80,7 +77,6 @@ const LoginForm = () => {
           });
           window.ReactNativeWebView.postMessage(message);
         }
-        
       } else {
         setError("ID atau kata sandi yang Anda masukkan salah.");
       }

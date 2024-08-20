@@ -16,17 +16,6 @@ const HeaderContainer = styled.div<HeaderProps>`
   align-items: center;
 `;
 
-const LogoutBtn = styled(CustomButton)`
-  position: absolute;
-  top: ${scale(10)}px;
-  right: ${scale(10)}px;
-  color: #40982d;
-  padding: ${scale(1)}px;
-  height: ${verticalScale(25)}px;
-  background-color: white;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-`;
-
 type HeaderProps = {
   title?: string;
   name?: string;
@@ -35,19 +24,11 @@ type HeaderProps = {
   onClickLogout?: () => void;
 };
 
-const Header: React.FC<HeaderProps> = ({
-  title,
-  name,
-  backgroundColor,
-  onClickLogout,
-}) => {
+const Header: React.FC<HeaderProps> = ({ title, name, backgroundColor }) => {
   return (
     <HeaderContainer backgroundColor={backgroundColor}>
       {name ? (
         <>
-          <LogoutBtn size="xs" rounded onClick={onClickLogout}>
-            <CustomText color="#40982d">Keular</CustomText>
-          </LogoutBtn>
           <CustomText color="white" size="body">
             Welcome
           </CustomText>
