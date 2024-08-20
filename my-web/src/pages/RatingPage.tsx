@@ -9,35 +9,32 @@ import { instance } from "../apis/instance";
 import Spinner from "../components/common/atoms/Spinner";
 
 const RatingPage: React.FC = () => {
-  const { params } = useParams<{ params: string }>();
+  const { garbageId } = useParams<{ garbageId: string }>(); // 'params' 대신 'garbageId'를 직접 추출
   const [collector, setCollector] = useState("");
-  const [garbageId, setGarbageId] = useState<number>(-1);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      if (params) {
-        const id = parseInt(params, 10);
+      if (garbageId) {
+        const id = parseInt(garbageId, 10);
         if (!isNaN(id)) {
-          setGarbageId(id);
-        }
-        try {
-          const response = await instance.get(
-            `/api/garbages/${id}/collectorInfo`
-          );
-          if (response.data.success) {
-            setCollector(response.data.response.collectorName);
+          try {
+            const response = await instance.get(
+              `/api/garbages/${id}/collectorInfo`
+            );
+            if (response.data.success) {
+              setCollector(response.data.response.collectorName);
+            }
+          } catch (error) {
+            console.error(error);
+          } finally {
+            setLoading(false);
           }
-        } catch (error) {
-          console.error(error);
-          console.log(id);
-        } finally {
-          setLoading(false);
         }
       }
     };
     fetchData();
-  }, [params]);
+  }, [garbageId]);
 
   if (loading) {
     return <Spinner />;
@@ -54,7 +51,7 @@ const RatingPage: React.FC = () => {
           role="collector"
           name={collector}
         />
-        {garbageId !== null && <RatingBox garbageId={garbageId} />}
+        {garbageId && <RatingBox garbageId={parseInt(garbageId, 10)} />}{" "}
       </Wrapper>
     </Container>
   );
