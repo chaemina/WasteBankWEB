@@ -43,7 +43,15 @@ const HomePage: React.FC = () => {
   const handleLogout = () => {
     localStorage.removeItem("auth");
     localStorage.removeItem("role");
-    nav("/login");
+
+    if (window.ReactNativeWebView) {
+      const message = JSON.stringify({
+        type: "REMOVE_TOKEN",
+      });
+      window.ReactNativeWebView.postMessage(message);
+    }
+  
+
   };
 
   if (loading) {

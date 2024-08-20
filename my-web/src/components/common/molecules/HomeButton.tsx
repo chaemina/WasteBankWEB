@@ -62,7 +62,7 @@ const HomeButton: React.FC<HomeButtonProps> = ({ role }) => {
             <PageButton
               icon={icon_pickup}
               button_name="Pick-up"
-              page="pickup"
+              page="pickup" 
             />
             <PageButton
               icon={icon_schedule}
@@ -81,17 +81,17 @@ const HomeButton: React.FC<HomeButtonProps> = ({ role }) => {
             <PageButton
               icon={icon_location}
               button_name="Menunggu"
-              page="menunggu"
+              destination="CollectorNotMatched"
             />
             <PageButton
               icon={icon_pickup}
               button_name="Pick-up"
-              page="pickup"
+              destination="CollectorMatched"
             />
           </>
         )}
         {role === "admin" && (
-          <PageButton icon={icon_location} button_name="Letak" page="letak" />
+          <PageButton icon={icon_location} button_name="Letak" destination="AdminMapView" />
         )}
       </ButtonContainer>
     </OuterContainer>

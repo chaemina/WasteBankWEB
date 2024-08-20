@@ -1,54 +1,39 @@
 import React from "react";
 import styled from "styled-components";
-import ScheduleItem from "../atoms/ScheduleItem";
-import { verticalScale } from "../../../utils/Scale";
-import { instance } from "../../../apis/instance";
-import Spinner from "../../common/atoms/Spinner";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import ScheduleItem from "../atoms/ScheduleItem";
+import { fetchScheduleData, GarbageData, ScheduleResponse } from "../../../apis/schedule";
 import { useIntersectionObserver } from "../../../hooks/useIntersectionObserver";
+import { scale, verticalScale } from "../../../utils/Scale";
 
-const ScheduleContainer = styled.div`
+const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
-  gap: ${verticalScale(15)}px;
+  gap: ${verticalScale(10)}px;
+  padding: ${scale(20)}px;
 `;
 
-type GarbageData = {
-  garbageId: number;
-  matched: boolean;
-  collectorName: string;
-  collectionDayOfWeek: string;
-  collectionStatus: "수거 시작 전" | "수거중" | "수거 완료";
-};
+const Loader = styled.div`
+  text-align: center;
+  padding: ${verticalScale(20)}px;
+  color: white;
+`;
 
-type ScheduleListProps = {
-  filterMatched: boolean;
-};
+const ScheduleList: React.FC = () => {
 
-// fetchScheduleData 함수의 반환 타입 정의
-const fetchScheduleData = async ({ pageParam = 1 }: { pageParam?: number }) => {
-  const response = await instance.get(
-    `/api/garbages/registered?page=${pageParam}&limit=5`
-  );
-  if (response.data.success) {
-    return {
-      data: response.data.response,
-      nextPage: response.data.response.length < 5 ? undefined : pageParam + 1,
-    };
-  } else {
-    throw new Error(response.data.error);
-  }
-};
-
-const ScheduleList: React.FC<ScheduleListProps> = ({ filterMatched }) => {
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteQuery({
-      queryKey: ["scheduleData", filterMatched],
-      queryFn: fetchScheduleData,
-      getNextPageParam: (lastPage) => lastPage.nextPage,
-    });
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isLoading,
+    isError,
+    error,
+  } = useInfiniteQuery<ScheduleResponse, Error>({
+    queryKey: ["scheduleList"],
+    queryFn: async ({ pageParam = 1 }) => fetchScheduleData(pageParam as number),
+    getNextPageParam: (lastPage) => lastPage.isLast ? undefined : lastPage.nextPage,
+    initialPageParam: 1, 
+  });
 
   const { setTarget } = useIntersectionObserver({
     threshold: 0.1,
@@ -56,45 +41,26 @@ const ScheduleList: React.FC<ScheduleListProps> = ({ filterMatched }) => {
     fetchNextPage,
   });
 
-  if (isLoading) {
-    return <Spinner />;
-  }
+
+  if (isLoading) return <Loader>Loading...</Loader>;
+  if (isError) return <Loader>Error: {(error as Error).message}</Loader>;
 
   return (
-    <ScheduleContainer>
-      {data?.pages.map((page, pageIndex) =>
-        page.data
-          .filter((item: GarbageData) => (filterMatched ? item.matched : true))
-          .map((item: GarbageData, index: number) => {
-            if (
-              pageIndex === data.pages.length - 1 &&
-              index === page.data.length - 1
-            ) {
-              return (
-                <div ref={setTarget} key={item.garbageId}>
-                  <ScheduleItem
-                    garbageId={item.garbageId}
-                    day={item.collectionDayOfWeek}
-                    collector={item.collectorName}
-                    status={item.collectionStatus}
-                  />
-                </div>
-              );
-            } else {
-              return (
-                <ScheduleItem
-                  key={item.garbageId}
-                  garbageId={item.garbageId}
-                  day={item.collectionDayOfWeek}
-                  collector={item.collectorName}
-                  status={item.collectionStatus}
-                />
-              );
-            }
-          })
+    <ListContainer>
+      {data?.pages.flatMap((page) =>
+        page.response.map((schedule: GarbageData) => (
+          <ScheduleItem
+            key={schedule.garbageId}
+            garbageId={schedule.garbageId}
+            day={schedule.collectionDayOfWeek}
+            collector={schedule.collectorName}
+            status={schedule.collectionStatus}
+          />
+        ))
       )}
-      {isFetchingNextPage && <Spinner />}
-    </ScheduleContainer>
+      <div ref={setTarget} style={{ height: "10px" }}></div>
+      {!hasNextPage && <Loader>No more schedules</Loader>}
+    </ListContainer>
   );
 };
 

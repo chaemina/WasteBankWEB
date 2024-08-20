@@ -17,13 +17,27 @@ const Button = styled(CustomButton)`
 type PageButtonProps = {
   icon: string;
   button_name: string;
-  page: string;
+  page?: string;
+  destination?: string; // 메시지 전송을 위한 destination prop 추가
 };
 
-const PageButton: React.FC<PageButtonProps> = ({ icon, button_name, page }) => {
+const PageButton: React.FC<PageButtonProps> = ({ icon, button_name, page, destination }) => {
   const nav = useNavigate();
+
+  const handleClick = () => {
+    if (destination && window.ReactNativeWebView) {
+      const message = JSON.stringify({
+        type: "NAVIGATE",
+        destination: destination,
+      });
+      window.ReactNativeWebView.postMessage(message);
+    } else if (page) {
+      nav(`/${page}`);
+    }
+  };
+
   return (
-    <Button rounded={true} onClick={() => nav(`/${page}`)}>
+    <Button rounded={true} onClick={handleClick}>
       <IconImage src={icon} />
       <CustomText color="white" size="body">
         {button_name}
