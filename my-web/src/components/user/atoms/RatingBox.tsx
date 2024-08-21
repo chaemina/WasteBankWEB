@@ -5,7 +5,7 @@ import styled from "styled-components";
 import React, { useState } from "react";
 import { instance } from "../../../apis/instance";
 import { scale } from "../../../utils/Scale";
-import { ButtonContainer } from "../../common/atoms/ButtonContainer";
+import ButtonContainer from "../../common/atoms/ButtonContainer";
 import CustomButton from "../../common/atoms/CustomButton";
 import CustomAlert from "../../common/atoms/CustomAlert";
 import { useNavigate } from "react-router-dom";

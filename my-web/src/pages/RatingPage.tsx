@@ -2,7 +2,6 @@ import Identification from "../components/common/molecules/Identification";
 import Container from "../components/common/atoms/Container";
 import RatingBox from "../components/user/atoms/RatingBox";
 import { verticalScale } from "../utils/Scale";
-import { Wrapper } from "../components/common/atoms/ButtonContainer";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { instance } from "../apis/instance";

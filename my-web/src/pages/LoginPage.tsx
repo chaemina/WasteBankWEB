@@ -4,7 +4,6 @@ import CustomText from "../components/common/atoms/CustomText";
 import LoginForm from "../components/common/molecules/LoginForm";
 import Container from "../components/common/atoms/Container";
 import { scale, verticalScale } from "../utils/Scale";
-import { Wrapper } from "../components/common/atoms/ButtonContainer";
 
 const LoginContainer = styled.div`
   display: flex;
@@ -29,10 +28,8 @@ const LoginTitle = () => {
 const LoginPage = () => {
   return (
     <Container>
-      <Wrapper>
-        <LoginTitle />
-        <LoginForm />
-      </Wrapper>
+      <LoginTitle />
+      <LoginForm />
     </Container>
   );
 };

@@ -4,7 +4,7 @@ import CustomButton from "../components/common/atoms/CustomButton";
 import Register from "../components/user/molecules/Register";
 import CustomAlert from "../components/common/atoms/CustomAlert";
 import Header from "../components/common/molecules/Header";
-import { ButtonContainer } from "../components/common/atoms/ButtonContainer";
+import ButtonContainer from "../components/common/atoms/ButtonContainer";
 import { instance } from "../apis/instance";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../components/common/atoms/Spinner";
