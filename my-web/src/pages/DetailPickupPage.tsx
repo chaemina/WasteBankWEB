@@ -52,7 +52,12 @@ const DetailPickupPage = () => {
 
   const handleButtonClick = () => {
     if (window.ReactNativeWebView) {
-      window.ReactNativeWebView.postMessage("CollectorMapView");
+      const message = JSON.stringify({
+        type: "NAVIGATE",
+        destination: "CollectorLocation",
+        garbageId: garbageId,
+      });
+      window.ReactNativeWebView.postMessage(message);
     }
   };
 

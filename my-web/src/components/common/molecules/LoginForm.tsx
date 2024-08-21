@@ -91,7 +91,7 @@ const LoginForm = () => {
       <InputWrapper>
         <Icon src={icon_user_black} />
         <CustomInput
-          placeholder="Username..."
+          placeholder="User Email..."
           keyboardType="email"
           onChange={(value) => setEmail(value)}
         />
