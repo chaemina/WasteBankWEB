@@ -11,6 +11,7 @@ const Spacer = styled.div`
 `;
 
 const LogoutBtn = styled(CustomButton)`
+  text-align: center;
   background-color: white;
   width: ${scale(80)}px;
   height: ${verticalScale(30)}px;

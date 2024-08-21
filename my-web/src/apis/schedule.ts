@@ -18,7 +18,7 @@ export type ScheduleResponse = {
 
 export const fetchScheduleData = async (page: number): Promise<ScheduleResponse> => {
   try {
-    const res = await instance.get(`/api/garbages/registered?page=${page}`);
+    const res = await instance.get(`/api/garbages/registered/matched?page=${page}`);
     console.log(res.data);
     return res.data as ScheduleResponse;
   } catch (error: any) {

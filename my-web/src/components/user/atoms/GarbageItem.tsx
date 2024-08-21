@@ -74,21 +74,21 @@ const Spacer = styled.div`
 `;
 
 type GarbageItemProps = {
-  organik: number;
-  non_organik: number;
+  organicWeight: number;
+  non_organicWeight: number;
   saving: number;
 };
 
 const GarbageItem: React.FC<GarbageItemProps> = ({
-  organik,
-  non_organik,
+  organicWeight,
+  non_organicWeight,
   saving,
 }) => {
   return (
     <ItemContainer>
       <GarbageContainer>
-        <GarbageContent type="Organik" weight={organik} />
-        <GarbageContent type="Non-organik" weight={non_organik} />
+        <GarbageContent type="Organik" weight={organicWeight} />
+        <GarbageContent type="Non-organik" weight={non_organicWeight} />
       </GarbageContainer>
       <Spacer />
       <GarbageContainer>

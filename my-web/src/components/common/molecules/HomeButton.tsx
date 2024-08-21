@@ -8,7 +8,7 @@ import icon_location from "../../../assets/images/icon_location.svg";
 import { scale, verticalScale } from "../../../utils/Scale";
 
 type HomeButtonProps = {
-  role: string | undefined;
+  role: string;
 };
 
 const OuterContainer = styled.div<HomeButtonProps>`
@@ -62,7 +62,7 @@ const HomeButton: React.FC<HomeButtonProps> = ({ role }) => {
             <PageButton
               icon={icon_pickup}
               button_name="Pick-up"
-              page="pickup" 
+              page="pickup"
             />
             <PageButton
               icon={icon_schedule}
@@ -91,7 +91,11 @@ const HomeButton: React.FC<HomeButtonProps> = ({ role }) => {
           </>
         )}
         {role === "admin" && (
-          <PageButton icon={icon_location} button_name="Letak" destination="AdminMapView" />
+          <PageButton
+            icon={icon_location}
+            button_name="Letak"
+            destination="AdminMapView"
+          />
         )}
       </ButtonContainer>
     </OuterContainer>

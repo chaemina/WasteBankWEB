@@ -9,6 +9,7 @@ import {
 } from "../../../apis/garbage";
 import { useIntersectionObserver } from "../../../hooks/useIntersectionObserver";
 import { scale, verticalScale } from "../../../utils/Scale";
+import Spinner from "../../common/atoms/Spinner";
 
 const ListContainer = styled.div`
   display: flex;
@@ -40,7 +41,7 @@ const GarbageList: React.FC = () => {
     fetchNextPage,
   });
 
-  if (isLoading) return <Loader>Loading...</Loader>;
+  if (isLoading) return <Spinner />;
   if (isError) return <Loader>Error: {(error as Error).message}</Loader>;
 
   return (
@@ -49,8 +50,8 @@ const GarbageList: React.FC = () => {
         page.response.data.map((garbage: GarbageData) => (
           <GarbageItem
             key={garbage.garbageId}
-            organik={garbage.organik}
-            non_organik={garbage.non_organik}
+            organicWeight={garbage.organicWeight}
+            non_organicWeight={garbage.non_organicWeight}
             saving={garbage.saving}
           />
         ))
