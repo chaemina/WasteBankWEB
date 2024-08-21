@@ -9,6 +9,7 @@ import {
 } from "../../../apis/schedule";
 import { useIntersectionObserver } from "../../../hooks/useIntersectionObserver";
 import { scale, verticalScale } from "../../../utils/Scale";
+import Spinner from "../../common/atoms/Spinner";
 
 const ListContainer = styled.div`
   display: flex;
@@ -40,7 +41,7 @@ const ScheduleList: React.FC = () => {
     fetchNextPage,
   });
 
-  if (isLoading) return <Loader>Loading...</Loader>;
+  if (isLoading) return <Spinner />;
   if (isError) return <Loader>Error: {(error as Error).message}</Loader>;
 
   return (

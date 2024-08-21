@@ -2,10 +2,11 @@ import { instance } from "./instance";
 
 export type GarbageData = {
   garbageId: number;
-  organik: number,
-  non_organik: number,
-  saving: number
+  organicWeight: number;
+  non_organicWeight: number;
+  saving: number;
 };
+
 
 export type GarbageResponse = {
   response: {

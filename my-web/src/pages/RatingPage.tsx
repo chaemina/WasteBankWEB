@@ -42,17 +42,15 @@ const RatingPage: React.FC = () => {
 
   return (
     <Container>
-      <Wrapper>
-        <Identification
-          style={{
-            marginTop: `${verticalScale(20)}px`,
-            marginBottom: `${verticalScale(80)}px`,
-          }}
-          role="collector"
-          name={collector}
-        />
-        {garbageId && <RatingBox garbageId={parseInt(garbageId, 10)} />}{" "}
-      </Wrapper>
+      <Identification
+        style={{
+          marginTop: `${verticalScale(20)}px`,
+          marginBottom: `${verticalScale(80)}px`,
+        }}
+        role="collector"
+        name={collector}
+      />
+      {garbageId && <RatingBox garbageId={parseInt(garbageId, 10)} />}{" "}
     </Container>
   );
 };

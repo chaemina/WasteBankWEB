@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import CustomText from "../atoms/CustomText";
 import { verticalScale, scale } from "../../../utils/Scale";
-import CustomButton from "../atoms/CustomButton";
 
 const HeaderContainer = styled.div<HeaderProps>`
   position: relative;

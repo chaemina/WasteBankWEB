@@ -5,7 +5,6 @@ import CustomInput from "../atoms/CustomInput";
 import { scale, verticalScale } from "../../../utils/Scale";
 import { instance } from "../../../apis/instance";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import CustomButton from "../atoms/CustomButton";
 import CustomText from "../atoms/CustomText";
 
@@ -91,7 +90,7 @@ const LoginForm = () => {
       <InputWrapper>
         <Icon src={icon_user_black} />
         <CustomInput
-          placeholder="User Email..."
+          placeholder="Surel Pengguna..."
           keyboardType="email"
           onChange={(value) => setEmail(value)}
         />
@@ -99,7 +98,7 @@ const LoginForm = () => {
       <InputWrapper>
         <Icon src={icon_password} />
         <CustomInput
-          placeholder="Password..."
+          placeholder="Kata Sandi..."
           keyboardType="password"
           onChange={(value) => setPassword(value)}
         />
