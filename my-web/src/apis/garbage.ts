@@ -5,6 +5,7 @@ export type GarbageData = {
   organicWeight: number;
   non_organicWeight: number;
   saving: number;
+  registerationDate: string;
 };
 
 

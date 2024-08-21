@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import CustomText from "../../common/atoms/CustomText";
 import { scale, verticalScale } from "../../../utils/Scale";
+import IconImage from "../../common/atoms/IconImage";
 import icon_bin from "../../../assets/images/icon_bin.svg";
 import icon_saving from "../../../assets/images/icon_saving.svg";
-import IconImage from "../../common/atoms/IconImage";
 
 const ItemContainer = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ const GarbageInfo = styled.div`
   width: 100%;
 `;
 
-const GarbageWeight = styled(CustomText)`
+const InfoText = styled(CustomText)`
   margin-left: auto;
   margin-right: ${scale(20)}px;
 `;
@@ -35,64 +35,74 @@ const GarbageContainer = styled.div`
   padding: ${scale(5)}px;
 `;
 
-type GarbageContentProps = {
-  type?: string;
-  weight?: number;
-  saving?: number;
-};
-
-const GarbageContent: React.FC<GarbageContentProps> = ({ type, weight }) => {
-  return (
-    <GarbageInfo>
-      <IconImage margin={8} width={30} src={icon_bin} />
-      <CustomText color="white" size="body">
-        {type}
-      </CustomText>
-      <GarbageWeight color="white" size="body">
-        {weight} kg
-      </GarbageWeight>
-    </GarbageInfo>
-  );
-};
-
-const SavingContent: React.FC<GarbageContentProps> = ({ saving }) => {
-  return (
-    <GarbageInfo>
-      <IconImage margin={11} src={icon_saving} width={25} />
-      <CustomText color="white" size="body" bold>
-        Saving
-      </CustomText>
-      <GarbageWeight color="white" size="body" bold>
-        Rp. {saving}
-      </GarbageWeight>
-    </GarbageInfo>
-  );
-};
-
 const Spacer = styled.div`
   border: 1.3px solid white;
 `;
+
+type InfoContentProps = {
+  iconSrc?: string;
+  label: string;
+  value?: string | number | Date;
+  isBold?: boolean;
+};
+
+const InfoContent: React.FC<InfoContentProps> = ({
+  iconSrc,
+  label,
+  value,
+  isBold = false,
+}) => {
+  return (
+    <GarbageInfo>
+      <IconImage margin={8} width={30} src={iconSrc} />
+      <CustomText color="white" size="body" bold={isBold}>
+        {label}
+      </CustomText>
+      <InfoText color="white" size="body" bold={isBold}>
+        {value}
+      </InfoText>
+    </GarbageInfo>
+  );
+};
 
 type GarbageItemProps = {
   organicWeight: number;
   non_organicWeight: number;
   saving: number;
+  date: string;
 };
 
 const GarbageItem: React.FC<GarbageItemProps> = ({
   organicWeight,
   non_organicWeight,
   saving,
+  date,
 }) => {
   return (
     <ItemContainer>
       <GarbageContainer>
-        <GarbageContent type="Organik" weight={organicWeight} />
-        <GarbageContent type="Non-organik" weight={non_organicWeight} />
+        <InfoContent label={date} isBold={true} />
+      </GarbageContainer>
+      <GarbageContainer>
+        <InfoContent
+          iconSrc={icon_bin}
+          label="Organik"
+          value={`${organicWeight} kg`}
+        />
+        <InfoContent
+          iconSrc={icon_bin}
+          label="Non-organik"
+          value={`${non_organicWeight} kg`}
+        />
       </GarbageContainer>
       <Spacer />
       <GarbageContainer>
-        <SavingContent saving={saving} />
+        <InfoContent
+          iconSrc={icon_saving}
+          label="Saving"
+          value={`Rp. ${saving}`}
+          isBold
+        />
       </GarbageContainer>
     </ItemContainer>
   );
