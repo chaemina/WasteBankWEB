@@ -9,7 +9,7 @@ instance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("auth");
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `${token}`;
     }
     return config;
   },
@@ -19,15 +19,18 @@ instance.interceptors.request.use(
 );
 
 instance.interceptors.response.use(
-  (response) => {
-    // 응답 헤더에서 토큰을 추출하여 로컬 스토리지에 저장
+  async response => {
+    console.log('[API RESPONSE]', response);
+    
     const token = response.headers['authorization'];
     if (token) {
-      localStorage.setItem("auth", token);
+      await localStorage.setItem('auth', token); 
     }
+    
     return response;
   },
-  (error) => {
+  error => {
+    console.log(`[API RESPONSE ERROR] ${error}`);
     return Promise.reject(error);
-  }
+  },
 );
