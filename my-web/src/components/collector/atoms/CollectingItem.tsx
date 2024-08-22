@@ -24,17 +24,24 @@ const MapBtn = styled.button`
 `;
 
 type CollectingItemProps = {
-  location: string;
-  handleButtonClick: () => void;
+  garbageId: number;
 };
 
-const CollectingItem: React.FC<CollectingItemProps> = ({
-  location,
-  handleButtonClick,
-}) => {
+const CollectingItem: React.FC<CollectingItemProps> = ({ garbageId }) => {
+  const handleButtonClick = () => {
+    if (window.ReactNativeWebView) {
+      const message = JSON.stringify({
+        type: "NAVIGATE",
+        destination: "CollectorLocation",
+        garbageId: garbageId,
+      });
+      window.ReactNativeWebView.postMessage(message);
+    }
+  };
+
   return (
     <ItemContainer>
-      <CustomText size="title">{location}</CustomText>
+      <CustomText>Shortcut to the garbage location being collected</CustomText>
       <MapBtn onClick={handleButtonClick}>
         <img style={{ width: "100%" }} src={icon_location} />
       </MapBtn>

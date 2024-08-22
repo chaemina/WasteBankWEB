@@ -1,48 +1,41 @@
 import CollectingItem from "../atoms/CollectingItem";
-import {
-  CollectingData,
-  CollectingResponse,
-  fetchCollectingData,
-} from "../../../apis/collecting";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { useIntersectionObserver } from "../../../hooks/useIntersectionObserver";
-import Spinner from "../../common/atoms/Spinner";
+import { instance } from "../../../apis/instance";
+import { useEffect, useState } from "react";
 
-const CollectionList = () => {
-  const { data, fetchNextPage, hasNextPage, isLoading, isError, error } =
-    useInfiniteQuery<CollectingResponse, Error>({
-      queryKey: ["collectingList"],
-      queryFn: async ({ pageParam = 1 }) =>
-        fetchCollectingData(pageParam as number),
-      getNextPageParam: (lastPage) =>
-        lastPage.response.isLast ? undefined : lastPage.response.nextPage,
-      initialPageParam: 1,
-    });
+const CollectingList = () => {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [garbageIds, setGarbageIds] = useState<number[]>([]);
 
-  const { setTarget } = useIntersectionObserver({
-    threshold: 0.1,
-    hasNextPage,
-    fetchNextPage,
-  });
+  useEffect(() => {
+    const fetchGarbageId = async () => {
+      try {
+        setLoading(true);
+        const response = await instance.get("/api/collector/garbageId");
+        const garbageIds = response.data.response.map(
+          (item: { garbageId: number }) => item.garbageId
+        );
+        setGarbageIds(garbageIds);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  if (isLoading) return <Spinner />;
-  if (isError) return <Loader>Error: {(error as Error).message}</Loader>;
+    fetchGarbageId();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <ListContainer>
-      {data?.pages.flatMap((page) =>
-        page.response.data.map((garbage: GarbageData) => (
-          <GarbageItem
-            key={garbage.garbageId}
-            organicWeight={garbage.organicWeight}
-            non_organicWeight={garbage.non_organicWeight}
-            saving={garbage.saving}
-            date={garbage.registerationDate}
-          />
-        ))
-      )}
-      <div ref={setTarget} style={{ height: "10px" }}></div>
-      {!hasNextPage && <Loader>No more schedules</Loader>}
-    </ListContainer>
+    <div>
+      {garbageIds.map((garbageId) => (
+        <CollectingItem key={garbageId} garbageId={garbageId} />
+      ))}
+    </div>
   );
 };
+
+export default CollectingList;

@@ -47,15 +47,20 @@ const GarbageList: React.FC = () => {
   return (
     <ListContainer>
       {data?.pages.flatMap((page) =>
-        page.response.data.map((garbage: GarbageData) => (
-          <GarbageItem
-            key={garbage.garbageId}
-            organicWeight={garbage.organicWeight}
-            non_organicWeight={garbage.non_organicWeight}
-            saving={garbage.saving}
-            date={garbage.registerationDate}
-          />
-        ))
+        page.response.data.map((garbage: GarbageData) => {
+          const formattedDate = new Date(
+            garbage.registrationDate
+          ).toLocaleDateString();
+          return (
+            <GarbageItem
+              key={garbage.garbageId}
+              organicWeight={garbage.organicWeight}
+              non_organicWeight={garbage.non_organicWeight}
+              saving={garbage.saving}
+              date={formattedDate}
+            />
+          );
+        })
       )}
       <div ref={setTarget} style={{ height: "10px" }}></div>
       {!hasNextPage && <Loader>No more schedules</Loader>}
