@@ -66,15 +66,19 @@ const LoginForm = () => {
     try {
       const response = await instance.post("/api/login", { email, password });
       if (response.data.success) {
-        const { token } = response.data.response;
-        localStorage.setItem("auth", token);
-
-        if (window.ReactNativeWebView) {
-          const message = JSON.stringify({
-            type: "TOKEN",
-            token: token,
-          });
-          window.ReactNativeWebView.postMessage(message);
+        try {
+          const token = await localStorage.getItem('auth'); 
+      
+          if (window.ReactNativeWebView) {
+            const message = JSON.stringify({
+              type: "TOKEN",
+              token: token,
+            });
+      
+            window.ReactNativeWebView.postMessage(message); 
+          }
+        } catch (error) {
+          console.error('Error retrieving token or sending message:', error);
         }
       } else {
         setError("ID atau kata sandi yang Anda masukkan salah.");
@@ -108,7 +112,7 @@ const LoginForm = () => {
         <CustomButton
           style={{ border: "2px solid #40892d" }}
           color="white"
-          label="Sign up"
+          label="Dafter"
           size="sm"
           rounded
           onClick={handleSignUpClick}
