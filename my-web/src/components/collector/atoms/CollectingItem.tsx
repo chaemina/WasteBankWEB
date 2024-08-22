@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { scale, verticalScale } from "../../../utils/Scale";
-import icon_location from "../../../assets/images/icon_location.svg";
+import icon_map from "../../../assets/images/icon_map_green.svg";
 import CustomText from "../../common/atoms/CustomText";
 
 const ItemContainer = styled.div`
@@ -8,10 +8,20 @@ const ItemContainer = styled.div`
   justify-content: center;
   background-color: #40892d;
   width: ${scale(320)}px;
-  height: ${verticalScale(130)}px;
+  height: ${verticalScale(70)}px;
   border-radius: 20px;
-  justify-content: space-between;
   align-items: center;
+`;
+
+const Info = styled.div`
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: ${verticalScale(35)}px;
+  padding: ${scale(20)}px;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 const MapBtn = styled.button`
@@ -24,20 +34,31 @@ const MapBtn = styled.button`
 `;
 
 type CollectingItemProps = {
-  location: string;
-  handleButtonClick: () => void;
+  garbageId: number;
 };
 
-const CollectingItem: React.FC<CollectingItemProps> = ({
-  location,
-  handleButtonClick,
-}) => {
+const CollectingItem: React.FC<CollectingItemProps> = ({ garbageId }) => {
+  const handleButtonClick = () => {
+    if (window.ReactNativeWebView) {
+      const message = JSON.stringify({
+        type: "NAVIGATE",
+        destination: "CollectorLocation",
+        garbageId: garbageId,
+      });
+      window.ReactNativeWebView.postMessage(message);
+    }
+  };
+
   return (
     <ItemContainer>
-      <CustomText size="title">{location}</CustomText>
-      <MapBtn onClick={handleButtonClick}>
-        <img style={{ width: "100%" }} src={icon_location} />
-      </MapBtn>
+      <Info>
+        <CustomText size="body" color="white">
+          Periksa lokasi sampah...
+        </CustomText>
+        <MapBtn onClick={handleButtonClick}>
+          <img style={{ width: "100%" }} src={icon_map} />
+        </MapBtn>
+      </Info>
     </ItemContainer>
   );
 };
