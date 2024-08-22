@@ -112,7 +112,7 @@ const LoginForm = () => {
         <CustomButton
           style={{ border: "2px solid #40892d" }}
           color="white"
-          label="Sign up"
+          label="Dafter"
           size="sm"
           rounded
           onClick={handleSignUpClick}
