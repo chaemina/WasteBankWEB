@@ -11,7 +11,7 @@ const ItemContainer = styled.div`
   flex-direction: column;
   background-color: #40892d;
   width: ${scale(320)}px;
-  height: ${verticalScale(130)}px;
+  height: ${verticalScale(170)}px;
   border-radius: 20px;
 `;
 
@@ -35,8 +35,14 @@ const GarbageContainer = styled.div`
   padding: ${scale(5)}px;
 `;
 
-const Spacer = styled.div`
-  border: 1.3px solid white;
+const DayContainer = styled.div`
+  display: flex;
+  height: ${verticalScale(40)}px;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  border-bottom: white 2px solid;
+  padding-left: ${scale(18)}px;
 `;
 
 type InfoContentProps = {
@@ -54,7 +60,7 @@ const InfoContent: React.FC<InfoContentProps> = ({
 }) => {
   return (
     <GarbageInfo>
-      <IconImage margin={8} width={30} src={iconSrc} />
+      {iconSrc && <IconImage margin={8} width={30} src={iconSrc} />}
       <CustomText color="white" size="body" bold={isBold}>
         {label}
       </CustomText>
@@ -80,9 +86,11 @@ const GarbageItem: React.FC<GarbageItemProps> = ({
 }) => {
   return (
     <ItemContainer>
-      <GarbageContainer>
-        <InfoContent label={date} isBold={true} />
-      </GarbageContainer>
+      <DayContainer>
+        <CustomText color="white" size="body" bold>
+          {date}
+        </CustomText>
+      </DayContainer>
       <GarbageContainer>
         <InfoContent
           iconSrc={icon_bin}
@@ -94,9 +102,6 @@ const GarbageItem: React.FC<GarbageItemProps> = ({
           label="Non-organik"
           value={`${non_organicWeight} kg`}
         />
-      </GarbageContainer>
-      <Spacer />
-      <GarbageContainer>
         <InfoContent
           iconSrc={icon_saving}
           label="Saving"

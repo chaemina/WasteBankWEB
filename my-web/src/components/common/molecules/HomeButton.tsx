@@ -5,7 +5,9 @@ import icon_pickup from "../../../assets/images/icon_pickup.svg";
 import icon_schedule from "../../../assets/images/icon_schedule.svg";
 import icon_saving from "../../../assets/images/icon_saving.svg";
 import icon_location from "../../../assets/images/icon_location.svg";
+import icon_collector from "../../../assets/images/icon_collector.svg";
 import { scale, verticalScale } from "../../../utils/Scale";
+import { useNavigate } from "react-router-dom";
 
 type HomeButtonProps = {
   role: string;
@@ -19,7 +21,9 @@ const OuterContainer = styled.div<HomeButtonProps>`
   height: 100%;
   box-sizing: border-box;
   margin-top: ${({ role }) =>
-    role === "user" ? verticalScale(100) : verticalScale(150)}px;
+    role === "user" || role === "collector"
+      ? verticalScale(100)
+      : verticalScale(150)}px;
 `;
 
 const ButtonContainer = styled.div<HomeButtonProps>`
@@ -38,7 +42,7 @@ const ButtonContainer = styled.div<HomeButtonProps>`
     role === "collector" &&
     `
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr;
+    grid-template-rows: repeat(2, 1fr);
   `}
     ${({ role }) =>
     role === "admin" &&
@@ -49,6 +53,7 @@ const ButtonContainer = styled.div<HomeButtonProps>`
 `;
 
 const HomeButton: React.FC<HomeButtonProps> = ({ role }) => {
+  const nav = useNavigate();
   return (
     <OuterContainer role={role}>
       <ButtonContainer role={role}>
@@ -87,6 +92,12 @@ const HomeButton: React.FC<HomeButtonProps> = ({ role }) => {
               icon={icon_pickup}
               button_name="Pick-up"
               destination="CollectorMatched"
+            />
+            <PageButton
+              icon={icon_collector}
+              button_name="Mengumpulkan"
+              page="collecting"
+              style={{ gridColumn: "2", gridRow: "2" }}
             />
           </>
         )}

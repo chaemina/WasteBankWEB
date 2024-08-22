@@ -7,6 +7,7 @@ import SchedulePage from "./pages/SchedulePage";
 import RatingPage from "./pages/RatingPage";
 import MySavingPage from "./pages/MySavingPage";
 import LoginPage from "./pages/LoginPage";
+import CollectingPage from "./pages/CollectingPage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/rating/:garbageId" element={<RatingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/detailpickup/:garbageId" element={<DetailPickupPage />} />
+        <Route path="/collecting" element={<CollectingPage />} />
       </Routes>
     </>
   );

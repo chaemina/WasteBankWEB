@@ -13,7 +13,7 @@ const ItemContainer = styled.div`
   border-radius: 20px;
 `;
 
-const SearchBtn = styled.button`
+export const SearchBtn = styled.button`
   width: ${scale(40)}px;
   height: ${scale(40)}px;
   background-color: white;
