@@ -18,10 +18,17 @@ type PageButtonProps = {
   icon: string;
   button_name: string;
   page?: string;
+  style?: React.CSSProperties;
   destination?: string; // 메시지 전송을 위한 destination prop 추가
 };
 
-const PageButton: React.FC<PageButtonProps> = ({ icon, button_name, page, destination }) => {
+const PageButton: React.FC<PageButtonProps> = ({
+  icon,
+  button_name,
+  page,
+  destination,
+  style,
+}) => {
   const nav = useNavigate();
 
   const handleClick = () => {
@@ -37,7 +44,7 @@ const PageButton: React.FC<PageButtonProps> = ({ icon, button_name, page, destin
   };
 
   return (
-    <Button rounded={true} onClick={handleClick}>
+    <Button style={style} rounded={true} onClick={handleClick}>
       <IconImage src={icon} />
       <CustomText color="white" size="body">
         {button_name}

@@ -1,6 +1,7 @@
 import CollectingItem from "../atoms/CollectingItem";
 import { instance } from "../../../apis/instance";
 import { useEffect, useState } from "react";
+import Spinner from "../../common/atoms/Spinner";
 
 const CollectingList = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -26,7 +27,7 @@ const CollectingList = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   return (
