@@ -6,6 +6,25 @@ import HomeButton from "../components/common/molecules/HomeButton";
 import { instance } from "../apis/instance";
 import Spinner from "../components/common/atoms/Spinner";
 import Footer from "../components/common/atoms/Footer";
+import icon_search from "../assets/images/icon_search.svg";
+import styled from "styled-components";
+import { scale, verticalScale } from "../utils/Scale";
+
+const SearchContainer = styled.div`
+  display: flex;
+  margin-left: auto;
+  margin-right: ${scale(20)}px;
+  margin-top: ${verticalScale(100)}px;
+`;
+
+export const SearchBtn = styled.button`
+  width: ${scale(50)}px;
+  height: ${scale(50)}px;
+  background-color: white;
+  border-radius: 13px;
+  border: 3px solid #40982d;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
+`;
 
 const HomePage: React.FC = () => {
   const [name, setName] = useState<string>("");
@@ -60,6 +79,13 @@ const HomePage: React.FC = () => {
     <Container>
       <Header name={name} backgroundColor="#40892d" color="white" />
       <HomeButton role={role} />
+      {role === "collector" && (
+        <SearchContainer>
+          <SearchBtn onClick={() => nav(`/collecting`)}>
+            <img style={{ width: "100%" }} src={icon_search} />
+          </SearchBtn>
+        </SearchContainer>
+      )}
       <Footer onClickLogout={handleLogout} />
     </Container>
   );

@@ -8,7 +8,7 @@ const ItemContainer = styled.div`
   justify-content: center;
   background-color: #40892d;
   width: ${scale(320)}px;
-  height: ${verticalScale(130)}px;
+  height: ${verticalScale(100)}px;
   border-radius: 20px;
   justify-content: space-between;
   align-items: center;
@@ -41,9 +41,11 @@ const CollectingItem: React.FC<CollectingItemProps> = ({ garbageId }) => {
 
   return (
     <ItemContainer>
-      <CustomText>Shortcut to the garbage location being collected</CustomText>
+      <CustomText size="body" color="white">
+        Periksa lokasi sampah...
+      </CustomText>
       <MapBtn onClick={handleButtonClick}>
-        <img style={{ width: "100%" }} src={icon_location} />
+        <img style={{ fill: "#40982d", width: "100%" }} src={icon_location} />
       </MapBtn>
     </ItemContainer>
   );
