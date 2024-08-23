@@ -1,14 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import CustomText from "../atoms/CustomText";
-import { verticalScale, scale } from "../../../utils/Scale";
+import { scale, moderateScale } from "../../../utils/Scale";
+
 
 const HeaderContainer = styled.div<HeaderProps>`
   position: relative;
   display: flex;
   flex-direction: column;
   background-color: ${(props) => props.backgroundColor || "none"};
-  height: ${verticalScale(100)}px;
+  height: ${moderateScale(100,0.3)}px;
   width: 100%;
   text-align: center;
   justify-content: center;

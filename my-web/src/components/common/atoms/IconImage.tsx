@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { scale } from "../../../utils/Scale";
+import { moderateScale,scale } from "../../../utils/Scale";
 
 type IconImageProps = {
   width?: number;
@@ -9,9 +9,9 @@ type IconImageProps = {
 
 const IconImage = styled.img<IconImageProps>`
   width: ${(props) =>
-    props.width ? `${scale(props.width)}px` : `${scale(80)}px`};
+    props.width ? `${moderateScale(props.width,0.3)}px` : `${moderateScale(80,0.3)}px`};
   height: ${(props) =>
-    props.height ? `${scale(props.height)}px` : `${scale(80)}px`};
+    props.height ? `${moderateScale(props.height,0.3)}px` : `${moderateScale(80,0.3)}px`};
   margin: ${(props) =>
     props.margin ? `${scale(props.margin)}px` : `${scale(10)}px`};
   align-items: center;

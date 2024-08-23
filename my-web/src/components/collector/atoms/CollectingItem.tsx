@@ -42,7 +42,7 @@ const CollectingItem: React.FC<CollectingItemProps> = ({ garbageId }) => {
     if (window.ReactNativeWebView) {
       const message = JSON.stringify({
         type: "NAVIGATE",
-        destination: "CollectorLocation",
+        destination: "IndividualTrashMapView",
         garbageId: garbageId,
       });
       window.ReactNativeWebView.postMessage(message);

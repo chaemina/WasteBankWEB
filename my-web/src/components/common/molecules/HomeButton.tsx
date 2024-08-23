@@ -20,10 +20,7 @@ const OuterContainer = styled.div<HomeButtonProps>`
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  margin-top: ${({ role }) =>
-    role === "user" || role === "collector"
-      ? verticalScale(100)
-      : verticalScale(150)}px;
+
 `;
 
 const ButtonContainer = styled.div<HomeButtonProps>`

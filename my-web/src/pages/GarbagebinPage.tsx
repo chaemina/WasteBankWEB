@@ -85,14 +85,12 @@ const GarbagebinPage: React.FC = () => {
               setNonOrganikWeight(parseFloat(value))
             }
           />
-          <ButtonContainer>
             <CustomButton
               label="Krim"
               size="sm"
               rounded
               onClick={onClickAlert}
             />
-          </ButtonContainer>
           {alert && (
             <CustomAlert
               title="Total yang didapatkan"
