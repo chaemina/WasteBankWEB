@@ -43,7 +43,7 @@ const RPupdatePage: React.FC = () => {
   const onClickOkay = async () => {
     try {
       setLoading(true);
-      const response = await instance.post("/api/admin/updateValue", {
+      await instance.post("/api/admin/updateValue", {
         organicValue: organikWeight,
         non_organicValue: nonOrganikWeight,
       });
