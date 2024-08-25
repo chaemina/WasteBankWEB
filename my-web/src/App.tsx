@@ -8,12 +8,13 @@ import RatingPage from "./pages/RatingPage";
 import MySavingPage from "./pages/MySavingPage";
 import LoginPage from "./pages/LoginPage";
 import CollectingPage from "./pages/CollectingPage";
+import RPupdatePage from "./pages/RPupdatePage";
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/:role" element={<HomePage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/garbagebin" element={<GarbagebinPage />} />
         <Route path="/pickup" element={<PickupPage />} />
         <Route path="/schedule" element={<SchedulePage />} />
@@ -22,6 +23,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/detailpickup/:garbageId" element={<DetailPickupPage />} />
         <Route path="/collecting" element={<CollectingPage />} />
+        <Route path="/rpupdate" element={<RPupdatePage/>} />
       </Routes>
     </>
   );

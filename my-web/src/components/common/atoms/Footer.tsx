@@ -1,20 +1,17 @@
 import styled from "styled-components";
 import CustomButton from "./CustomButton";
 import CustomText from "./CustomText";
-import { scale, verticalScale } from "../../../utils/Scale";
+import { moderateScale, scale } from "../../../utils/Scale";
 
 const Spacer = styled.div`
-  position: fixed;
-  bottom: ${verticalScale(20)}px;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-top : ${scale(12)}px;
 `;
 
 const LogoutBtn = styled(CustomButton)`
   text-align: center;
   background-color: white;
-  width: ${scale(80)}px;
-  height: ${verticalScale(30)}px;
+  width: ${moderateScale(100,0.3)}px;
+  height: ${moderateScale(50,0.3)}px;
   border: 3px solid #40982d;
 `;
 
@@ -25,8 +22,8 @@ type FooterProps = {
 const Footer: React.FC<FooterProps> = ({ onClickLogout }) => {
   return (
     <Spacer>
-      <LogoutBtn rounded size="xs" onClick={onClickLogout}>
-        <CustomText bold color="#40982d">
+      <LogoutBtn size="xs" onClick={onClickLogout} rounded>
+        <CustomText bold={true} color="#40982d" size="body">
           keualr
         </CustomText>
       </LogoutBtn>

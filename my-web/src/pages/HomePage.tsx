@@ -6,6 +6,8 @@ import HomeButton from "../components/common/molecules/HomeButton";
 import { instance } from "../apis/instance";
 import Spinner from "../components/common/atoms/Spinner";
 import Footer from "../components/common/atoms/Footer";
+import logo from "../assets/images/logo_wastebankapp.svg"
+import IconImage from "../components/common/atoms/IconImage";
 
 const HomePage: React.FC = () => {
   const [name, setName] = useState<string>("");
@@ -59,6 +61,7 @@ const HomePage: React.FC = () => {
   return (
     <Container>
       <Header name={name} backgroundColor="#40892d" color="white" />
+      <IconImage src={logo} width={150} height={130}/>
       <HomeButton role={role} />
       <Footer onClickLogout={handleLogout} />
     </Container>

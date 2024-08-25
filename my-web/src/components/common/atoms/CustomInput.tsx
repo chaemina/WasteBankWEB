@@ -21,24 +21,28 @@ const Container = styled.div`
   margin: ${scale(10)}px;
 `;
 
-const Input = styled.input<{ width: any; height: any; inputColor: string }>`
-  height: ${(props) => moderateScale(props.height, 0.3)}px;
-  width: ${(props) => moderateScale(props.width, 0.3)}px;
+const Input = styled.input<{
+  width?: number;
+  height?: number;
+  $inputColor: string; 
+}>`
+  height: ${(props) => moderateScale(props.height || 40, 0.3)}px;
+  width: ${(props) => moderateScale(props.width || 200, 0.3)}px;
   border: none;
   border-width: 2px;
   padding: ${scale(10)}px;
   border-radius: 8px;
-  border-color: ${({ inputColor }) =>
-    inputColor === "#40892d" ? "white" : "#4C4C4C"};
-  background-color: ${({ inputColor }) => inputColor};
+  border-color: ${({ $inputColor }) =>
+    $inputColor === "#40892d" ? "white" : "#4C4C4C"};
+  background-color: ${({ $inputColor }) => $inputColor};
   box-sizing: border-box;
 
   &:focus,
   &:focus-within,
   &:active {
     border-color: transparent;
-    outline: none; /* 포커스를 받을 때 원하는 border 색상 */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* 포커스를 받을 때 원하는 효과 */
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   }
 `;
 
@@ -75,7 +79,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
         autoFocus={autoFocus}
         type={keyboardType}
         style={style}
-        inputColor={inputColor}
+        $inputColor={inputColor}
       />
     </Container>
   );

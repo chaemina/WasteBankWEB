@@ -64,10 +64,10 @@ const CustomAlert: React.FC<AlertProps> = ({
   return (
     <ModalBackground>
       <AlertBox>
-        <CustomText bold size="title" color="#40892d">
+        <CustomText bold={true} size="title" color="#40892d">
           {title}
         </CustomText>
-        <CustomText bold size="body" color="#000">
+        <CustomText bold={true} size="body" color="#000">
           {text}
         </CustomText>
         <AlertButtonContainer>

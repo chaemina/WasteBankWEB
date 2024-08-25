@@ -56,11 +56,11 @@ const InfoContent: React.FC<InfoContentProps> = ({
   iconSrc,
   label,
   value,
-  isBold = false,
+  isBold =false,
 }) => {
   return (
     <GarbageInfo>
-      {iconSrc && <IconImage margin={8} width={30} src={iconSrc} />}
+      {iconSrc && <IconImage $margin={8} width={30} src={iconSrc} />}
       <CustomText color="white" size="body" bold={isBold}>
         {label}
       </CustomText>

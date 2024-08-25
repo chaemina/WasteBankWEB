@@ -2,7 +2,7 @@ import styled from "styled-components";
 import icon_password from "../../../assets/images/icon_password.svg";
 import icon_user_black from "../../../assets/images/icon_user_black.svg";
 import CustomInput from "../atoms/CustomInput";
-import { scale, verticalScale } from "../../../utils/Scale";
+import { moderateScale, scale, verticalScale } from "../../../utils/Scale";
 import { instance } from "../../../apis/instance";
 import { useState } from "react";
 import CustomButton from "../atoms/CustomButton";
@@ -19,19 +19,19 @@ const InputWrapper = styled.div`
   display: flex;
   align-items: center;
   border: 1.8px solid #acacac;
-  padding: ${verticalScale(5)}px;
-  margin: ${verticalScale(10)}px;
+  padding: ${scale(5)}px;
+  margin: ${scale(10)}px;
   border-radius: 20px;
   background-color: #fff;
-  width: ${scale(280)}px;
-  height: ${verticalScale(60)}px;
+  width: ${moderateScale(280,0.3)}px;
+  height: ${moderateScale(60,0.3)}px;
   box-sizing: border-box;
 `;
 
 const Icon = styled.img`
-  width: ${scale(30)}px;
-  height: ${scale(30)}px;
-  margin: ${verticalScale(5)}px;
+  width: ${moderateScale(30,0.3)}px;
+  height: ${moderateScale(30,0.3)}px;
+
 `;
 
 const ButtonContainer = styled.div`
@@ -108,14 +108,14 @@ const LoginForm = () => {
         />
       </InputWrapper>
       <ButtonContainer>
-        <CustomButton label="Masuk" size="sm" rounded onClick={handleLogin} />
+        <CustomButton label="Masuk" size="sm"  onClick={handleLogin} rounded />
         <CustomButton
           style={{ border: "2px solid #40892d" }}
           color="white"
           label="Dafter"
           size="sm"
-          rounded
           onClick={handleSignUpClick}
+          rounded
         />
         {error && (
           <CustomText size="caption" color="red">

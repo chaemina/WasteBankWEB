@@ -6,8 +6,8 @@ import icon_schedule from "../../../assets/images/icon_schedule.svg";
 import icon_saving from "../../../assets/images/icon_saving.svg";
 import icon_location from "../../../assets/images/icon_location.svg";
 import icon_collector from "../../../assets/images/icon_collector.svg";
-import { scale, verticalScale } from "../../../utils/Scale";
-import { useNavigate } from "react-router-dom";
+import { scale } from "../../../utils/Scale";
+
 
 type HomeButtonProps = {
   role: string;
@@ -20,10 +20,7 @@ const OuterContainer = styled.div<HomeButtonProps>`
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  margin-top: ${({ role }) =>
-    role === "user" || role === "collector"
-      ? verticalScale(100)
-      : verticalScale(150)}px;
+
 `;
 
 const ButtonContainer = styled.div<HomeButtonProps>`
@@ -47,13 +44,12 @@ const ButtonContainer = styled.div<HomeButtonProps>`
     ${({ role }) =>
     role === "admin" &&
     `
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
+     grid-template-columns: repeat(2, 1fr);
+     grid-template-rows: repeat(2, 1fr);
   `};
 `;
 
 const HomeButton: React.FC<HomeButtonProps> = ({ role }) => {
-  const nav = useNavigate();
   return (
     <OuterContainer role={role}>
       <ButtonContainer role={role}>
@@ -102,11 +98,18 @@ const HomeButton: React.FC<HomeButtonProps> = ({ role }) => {
           </>
         )}
         {role === "admin" && (
-          <PageButton
+          <>         
+           <PageButton
             icon={icon_location}
             button_name="Letak"
             destination="AdminMapView"
           />
+          <PageButton
+          icon={icon_saving}
+          button_name="Nilai tukar"
+          page="rpupdate"
+        />
+        </>
         )}
       </ButtonContainer>
     </OuterContainer>

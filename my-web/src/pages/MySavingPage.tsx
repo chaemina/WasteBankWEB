@@ -2,15 +2,15 @@ import Container from "../components/common/atoms/Container";
 import CustomText from "../components/common/atoms/CustomText";
 import styled from "styled-components";
 import Header from "../components/common/molecules/Header";
-import { verticalScale } from "../utils/Scale";
+import { moderateScale, scale } from "../utils/Scale";
 import { useEffect, useState } from "react";
 import { instance } from "../apis/instance";
 import Spinner from "../components/common/atoms/Spinner";
 
 const SavingBox = styled.div`
   width: 100%;
-  margin-top: ${verticalScale(30)}px;
-  height: ${verticalScale(130)}px;
+  margin-top: ${scale(30)}px;
+  height: ${moderateScale(130,0.3)}px;
   color: white;
   background-color: #40892d;
   display: flex;
