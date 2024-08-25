@@ -11,7 +11,7 @@ export const UserRegister: React.FC<{
     return (
       <div
         style={{
-          marginTop: `${scale(60)}px`,
+          marginTop: `${scale(20)}px`,
         }}
       >
         <RegisterContent

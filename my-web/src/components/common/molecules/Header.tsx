@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import CustomText from "../atoms/CustomText";
+import CustomTitle from "../atoms/CustomTitle";
 import { scale, moderateScale } from "../../../utils/Scale";
 
 
@@ -42,9 +43,9 @@ const Header: React.FC<HeaderProps> = ({ title, name, backgroundColor }) => {
           </CustomText>
         </>
       ) : (
-        <CustomText color="#40892d" size="title" bold>
+        <CustomTitle color="#40892d">
           {title}
-        </CustomText>
+        </CustomTitle>
       )}
     </HeaderContainer>
   );

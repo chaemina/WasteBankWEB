@@ -26,8 +26,8 @@ const CustomButton: FC<Props> = ({
   const getTextSize = (size: "xs" | "sm" | "md" | "lg") => {
     switch (size) {
       case "xs":
-        return "caption";
       case "sm":
+        return "caption";
       case "md":
         return "body";
       case "lg":

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import Container from "../components/common/atoms/Container";
 import CustomButton from "../components/common/atoms/CustomButton";
 import { UserRegister } from "../components/user/organisms/UserRegister";
@@ -13,28 +13,31 @@ const GarbagebinPage: React.FC = () => {
   const [alert, setAlert] = useState(false);
   const [organikWeight, setOrganikWeight] = useState<number>(0);
   const [nonOrganikWeight, setNonOrganikWeight] = useState<number>(0);
+  const [organikValue, setOrganikValue] = useState<number>(0);
+  const [nonOrganikValue, setNonOrganikValue] = useState<number>(0);
   const [totalValue, setTotalValue] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
-  const [role, setRole] = useState<string>("");
-
 
   useEffect(() => {
-    const fetchUserRole = async () => {
+    const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await instance.get("/api/home");
-        const role = response.data.response.role;
-        setRole(role);
+        const response = await instance.get(`/api/garbages/getValue`);
+        if (response.data.success) {
+          console.log(response.data)
+          setNonOrganikValue(response.data.response.
+            non_organicValue)
+          setOrganikValue(response.data.response.organicValue)
+        }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       } finally {
         setLoading(false);
       }
     };
-
-    fetchUserRole();
-  }, [role]);
-
+    fetchData();
+  }, []);
+  
   const onClickAlert = async () => {
     try {
       setLoading(true);
@@ -85,8 +88,8 @@ const GarbagebinPage: React.FC = () => {
               setNonOrganikWeight(parseFloat(value))
             }
             // rp 값을 Register 컴포넌트에 전달합니다.
-            organikRp={60}
-            nonOrganikRp={80}
+            organikRp={organikValue}
+            nonOrganikRp={nonOrganikValue}
           />
             <CustomButton
               label="Krim"

@@ -4,7 +4,7 @@ import CustomInput from "../atoms/CustomInput";
 import icon_bin from "../../../assets/images/icon_bin.svg";
 import styled from "styled-components";
 import IconImage from "../atoms/IconImage";
-import { scale, verticalScale } from "../../../utils/Scale";
+import { moderateScale, scale, verticalScale } from "../../../utils/Scale";
 
 type RegisterProps = {
   sampah_type: string;
@@ -18,7 +18,7 @@ const RegisterContainer = styled.div`
   width: 100%;
   background-color: #40892d;
   align-items: center;
-  height: ${verticalScale(130)}px;
+  height: ${moderateScale(150,0.3)}px;
   box-sizing: border-box;
   padding: ${scale(10)}px;
 `;
