@@ -2,7 +2,7 @@ import Container from "../components/common/atoms/Container";
 import CustomText from "../components/common/atoms/CustomText";
 import styled from "styled-components";
 import Header from "../components/common/molecules/Header";
-import { moderateScale, scale, verticalScale } from "../utils/Scale";
+import { moderateScale, scale } from "../utils/Scale";
 import { useEffect, useState } from "react";
 import { instance } from "../apis/instance";
 import Spinner from "../components/common/atoms/Spinner";

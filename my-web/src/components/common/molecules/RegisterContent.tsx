@@ -4,7 +4,7 @@ import CustomInput from "../atoms/CustomInput";
 import icon_bin from "../../../assets/images/icon_bin.svg";
 import styled from "styled-components";
 import IconImage from "../atoms/IconImage";
-import { moderateScale, scale, verticalScale } from "../../../utils/Scale";
+import { moderateScale, scale } from "../../../utils/Scale";
 
 type RegisterProps = {
   sampah_type: string;

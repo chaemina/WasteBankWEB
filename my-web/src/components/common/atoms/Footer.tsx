@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import CustomButton from "./CustomButton";
 import CustomText from "./CustomText";
-import { moderateScale, scale, verticalScale } from "../../../utils/Scale";
+import { moderateScale, scale } from "../../../utils/Scale";
 
 const Spacer = styled.div`
   margin-top : ${scale(12)}px;
