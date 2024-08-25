@@ -7,7 +7,7 @@ import icon_saving from "../../../assets/images/icon_saving.svg";
 import icon_location from "../../../assets/images/icon_location.svg";
 import icon_collector from "../../../assets/images/icon_collector.svg";
 import { scale } from "../../../utils/Scale";
-import { useNavigate } from "react-router-dom";
+
 
 type HomeButtonProps = {
   role: string;
@@ -50,7 +50,6 @@ const ButtonContainer = styled.div<HomeButtonProps>`
 `;
 
 const HomeButton: React.FC<HomeButtonProps> = ({ role }) => {
-  const nav = useNavigate();
   return (
     <OuterContainer role={role}>
       <ButtonContainer role={role}>
