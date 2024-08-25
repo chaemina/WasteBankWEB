@@ -44,8 +44,8 @@ const ButtonContainer = styled.div<HomeButtonProps>`
     ${({ role }) =>
     role === "admin" &&
     `
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
+     grid-template-columns: repeat(2, 1fr);
+     grid-template-rows: repeat(2, 1fr);
   `};
 `;
 
@@ -99,11 +99,18 @@ const HomeButton: React.FC<HomeButtonProps> = ({ role }) => {
           </>
         )}
         {role === "admin" && (
-          <PageButton
+          <>         
+           <PageButton
             icon={icon_location}
             button_name="Letak"
             destination="AdminMapView"
           />
+          <PageButton
+          icon={icon_saving}
+          button_name="Nilai tukar"
+          page="rpupdate"
+        />
+        </>
         )}
       </ButtonContainer>
     </OuterContainer>

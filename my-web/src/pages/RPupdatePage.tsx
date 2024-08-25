@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Container from "../components/common/atoms/Container";
 import CustomButton from "../components/common/atoms/CustomButton";
-import { UserRegister } from "../components/user/organisms/UserRegister";
+import { AdminRegister } from "../components/admin/moledules/AdminRegister";
 import CustomAlert from "../components/common/atoms/CustomAlert";
 import Header from "../components/common/molecules/Header";
 import { instance } from "../apis/instance";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../components/common/atoms/Spinner";
 
-const GarbagebinPage: React.FC = () => {
+const RPupdatePage: React.FC = () => {
   const nav = useNavigate();
   const [alert, setAlert] = useState(false);
   const [organikWeight, setOrganikWeight] = useState<number>(0);
   const [nonOrganikWeight, setNonOrganikWeight] = useState<number>(0);
-  const [totalValue, setTotalValue] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [role, setRole] = useState<string>("");
 
@@ -35,38 +34,29 @@ const GarbagebinPage: React.FC = () => {
     fetchUserRole();
   }, [role]);
 
+
   const onClickAlert = async () => {
-    try {
-      setLoading(true);
-      const response = await instance.post("/api/garbages/totalValue", {
-        organicWeight: organikWeight,
-        non_organicWeight: nonOrganikWeight,
-      });
-      const responseData = await response.data;
-      setTotalValue(responseData.response);
-      setAlert(true);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
+    setAlert(true);
   };
+
 
   const onClickOkay = async () => {
     try {
       setLoading(true);
-      await instance.post("/api/garbages/register", {
-        organicWeight: organikWeight,
-        non_organicWeight: nonOrganikWeight,
+      const response = await instance.post("/api/admin/updateValue", {
+        organicValue: organikWeight,
+        non_organicValue: nonOrganikWeight,
       });
       setAlert(false);
-      nav(`/`);
+      nav("/")
     } catch (error) {
       console.log(error);
     } finally {
+      setAlert(false);
       setLoading(false);
     }
   };
+
 
   const onClickNo = () => {
     setAlert(false);
@@ -78,15 +68,14 @@ const GarbagebinPage: React.FC = () => {
         <Spinner />
       ) : (
         <>
-          <Header title="Menunggu di pick-up" />
-          <UserRegister
+          <Header title="Masukkan harga untuk hari ini" />
+          <AdminRegister
             onOrganikChange={(value) => setOrganikWeight(parseFloat(value))}
             onNonOrganikChange={(value) =>
               setNonOrganikWeight(parseFloat(value))
             }
-            // rp 값을 Register 컴포넌트에 전달합니다.
-            organikRp={60}
-            nonOrganikRp={80}
+            organikRp={null}
+            nonOrganikRp={null}
           />
             <CustomButton
               label="Krim"
@@ -96,8 +85,8 @@ const GarbagebinPage: React.FC = () => {
             />
           {alert && (
             <CustomAlert
-              title="Total yang didapatkan"
-              text={`Rp. ${totalValue}`}
+              title="Apakah harga yang diperbarui benar?"
+              text={`organicValue: ${organikWeight} non_organicValue: ${nonOrganikWeight}`}
               visible={alert}
               onClickOkay={onClickOkay}
               onClickNo={onClickNo}
@@ -109,4 +98,4 @@ const GarbagebinPage: React.FC = () => {
   );
 };
 
-export default GarbagebinPage;
+export default RPupdatePage;
