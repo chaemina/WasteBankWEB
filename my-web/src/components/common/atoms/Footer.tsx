@@ -22,8 +22,8 @@ type FooterProps = {
 const Footer: React.FC<FooterProps> = ({ onClickLogout }) => {
   return (
     <Spacer>
-      <LogoutBtn rounded size="xs" onClick={onClickLogout}>
-        <CustomText bold color="#40982d" size="body">
+      <LogoutBtn size="xs" onClick={onClickLogout} rounded>
+        <CustomText bold={true} color="#40982d" size="body">
           keualr
         </CustomText>
       </LogoutBtn>

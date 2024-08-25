@@ -8,9 +8,9 @@ export type Props = {
   children?: React.ReactNode;
   color?: string;
   size?: "xs" | "sm" | "md" | "lg";
-  rounded?: boolean;
   onClick?: (data?: any) => void;
   style?: React.CSSProperties;
+  rounded?: boolean; // 예를 들어 rounded와 같은 boolean 속성을 추가할 수 있음
 };
 
 const CustomButton: FC<Props> = ({
@@ -19,8 +19,8 @@ const CustomButton: FC<Props> = ({
   onClick,
   color,
   size = "md",
-  rounded = false,
   style,
+  rounded = false, // boolean 속성의 기본값을 설정
   ...rest
 }) => {
   const getTextSize = (size: "xs" | "sm" | "md" | "lg") => {
@@ -44,8 +44,8 @@ const CustomButton: FC<Props> = ({
       onClick={onClick}
       color={color}
       size={size}
-      rounded={rounded}
       style={style}
+      $rounded={rounded} // Transient prop으로 전달
       {...rest}
     >
       {label ? (
@@ -74,25 +74,21 @@ export default CustomButton;
 const getButtonDimensions = (size: "xs" | "sm" | "md" | "lg") => {
   const unit = "px";
   switch (size) {
-    // Modal Button
     case "xs":
       return {
         width: `${moderateScale(56, 0.3)}${unit}`,
         height: `${moderateScale(40, 0.3)}${unit}`,
       };
-    // Normal Button
     case "sm":
       return {
         width: `${moderateScale(258, 0.3)}${unit}`,
         height: `${moderateScale(40, 0.3)}${unit}`,
       };
-    // Home List Button
     case "md":
       return {
         width: `${moderateScale(154, 0.3)}${unit}`,
         height: `${moderateScale(154, 0.3)}${unit}`,
       };
-    // Using in SignUp
     case "lg":
       return {
         width: `${moderateScale(250, 0.3)}${unit}`,
@@ -106,10 +102,11 @@ const getButtonDimensions = (size: "xs" | "sm" | "md" | "lg") => {
   }
 };
 
+// Transient prop $rounded 사용
 const StyledButton = styled.button<{
   color?: string;
   size: "xs" | "sm" | "md" | "lg";
-  rounded: boolean;
+  $rounded?: boolean; // Transient prop 사용
 }>`
   ${({ size }) => {
     const { width, height } = getButtonDimensions(size);
@@ -118,13 +115,12 @@ const StyledButton = styled.button<{
       height: ${height};
     `;
   }}
+  display: flex;
   align-items: center;
   justify-content: center;
   background-color: ${({ color }) => (color ? color : "#40892d")};
-  border: 2px #40892d;
-  border-radius: ${({ rounded }) => (rounded ? "25px" : "12px")};
+  border: 2px solid #40892d;
+  border-radius: ${({ $rounded }) => ($rounded ? "25px" : "12px")};
   cursor: pointer;
+  appearance: none;
 `;
-
-// 사용 예시
-// <CustomButton size='xs' label="Cancel" onClick={() => navigation.navigate('Login')} />

@@ -45,13 +45,13 @@ const RegisterContent: React.FC<RegisterProps> = ({
 }) => {
   return (
     <RegisterContainer>
-      <IconImage src={icon_bin} margin={5} />
+      <IconImage src={icon_bin} $margin={5} />
       <SampahDetailBox>
         <CustomText size="body" color="white">
           {sampah_type}
         </CustomText>
         {rp !== null && (
-          <CustomText size="title" bold color="white">
+          <CustomText size="title" bold={true} color="white">
             Rp. {rp}
           </CustomText>
         )}

@@ -100,14 +100,14 @@ const RatingBox: React.FC<RatingBoxProps> = ({ garbageId }) => {
     <>
       <RatingContainer>
         <RatingNum>
-          <CustomText color="white" size="title" bold>
+          <CustomText color="white" size="title" bold={true}>
             Rating {rating} / 5
           </CustomText>
         </RatingNum>
         <RatingStar rating={rating} setRating={setRating} />
       </RatingContainer>
       <ButtonContainer>
-        <CustomButton label="Done" size="sm" rounded onClick={onClickDone} />
+        <CustomButton label="Done" size="sm" onClick={onClickDone} />
       </ButtonContainer>
       {alert && (
         <CustomAlert

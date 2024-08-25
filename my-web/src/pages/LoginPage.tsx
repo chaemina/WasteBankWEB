@@ -10,8 +10,7 @@ const LoginContainer = styled.div`
   align-items: center;
   justify-items: center;
   margin-top: ${scale(10)}px;
-  margin-bottom: ${scale(10)}px;
-  gap: ${scale(10)}px;
+  gap: ${scale(5)}px;
 `;
 
 const LoginTitle = () => {

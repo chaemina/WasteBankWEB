@@ -5,18 +5,6 @@ import CustomTitle from "../atoms/CustomTitle";
 import { scale, moderateScale } from "../../../utils/Scale";
 
 
-const HeaderContainer = styled.div<HeaderProps>`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  background-color: ${(props) => props.backgroundColor || "none"};
-  height: ${moderateScale(100,0.3)}px;
-  width: 100%;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-`;
-
 type HeaderProps = {
   title?: string;
   name?: string;
@@ -25,9 +13,23 @@ type HeaderProps = {
   onClickLogout?: () => void;
 };
 
+const HeaderContainer = styled.div<{
+  $backgroundColor?: string; 
+}>`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: ${(props) => props.$backgroundColor || "none"}; // $backgroundColor로 변경
+  height: ${moderateScale(100, 0.3)}px;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Header: React.FC<HeaderProps> = ({ title, name, backgroundColor }) => {
   return (
-    <HeaderContainer backgroundColor={backgroundColor}>
+    <HeaderContainer $backgroundColor={backgroundColor}>
       {name ? (
         <>
           <CustomText color="white" size="body">
@@ -37,15 +39,13 @@ const Header: React.FC<HeaderProps> = ({ title, name, backgroundColor }) => {
             style={{ padding: `${scale(5)}px` }}
             color="white"
             size="title"
-            bold
+            bold={true}
           >
             {name}
           </CustomText>
         </>
       ) : (
-        <CustomTitle color="#40892d">
-          {title}
-        </CustomTitle>
+        <CustomTitle color="#40892d">{title}</CustomTitle>
       )}
     </HeaderContainer>
   );

@@ -31,7 +31,7 @@ const InputWrapper = styled.div`
 const Icon = styled.img`
   width: ${moderateScale(30,0.3)}px;
   height: ${moderateScale(30,0.3)}px;
-  margin: ${scale(5)}px;
+
 `;
 
 const ButtonContainer = styled.div`
@@ -108,14 +108,14 @@ const LoginForm = () => {
         />
       </InputWrapper>
       <ButtonContainer>
-        <CustomButton label="Masuk" size="sm" rounded onClick={handleLogin} />
+        <CustomButton label="Masuk" size="sm"  onClick={handleLogin} rounded />
         <CustomButton
           style={{ border: "2px solid #40892d" }}
           color="white"
           label="Dafter"
           size="sm"
-          rounded
           onClick={handleSignUpClick}
+          rounded
         />
         {error && (
           <CustomText size="caption" color="red">

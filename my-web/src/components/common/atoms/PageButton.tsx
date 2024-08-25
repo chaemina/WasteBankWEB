@@ -44,7 +44,7 @@ const PageButton: React.FC<PageButtonProps> = ({
   };
 
   return (
-    <Button style={style} rounded={true} onClick={handleClick}>
+    <Button style={style} onClick={handleClick}>
       <IconImage src={icon} />
       <CustomText color="white" size="body">
         {button_name}

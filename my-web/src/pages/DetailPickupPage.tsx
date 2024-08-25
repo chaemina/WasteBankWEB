@@ -70,7 +70,7 @@ const DetailPickupPage = () => {
         <>
           <CustomText
             style={{ marginBottom: `${verticalScale(15)}px` }}
-            bold
+            bold="true"
             size="body"
           >
             Petugas:
