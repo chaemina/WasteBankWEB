@@ -6,7 +6,7 @@ axios.defaults.withCredentials = true;
 
 export const instance = axios.create({
   timeout: 5000,
-  baseURL: '/api',
+  baseURL: '/',
 });
 
 instance.interceptors.request.use(
