@@ -2,8 +2,6 @@ import axios from "axios";
 import { refresh } from "./user";
 const REFRESH_URL = "/api/refresh-token";
 
-axios.defaults.withCredentials = true;
-
 export const instance = axios.create({
   timeout: 5000,
   baseURL: import.meta.env.VITE_API_URL,
