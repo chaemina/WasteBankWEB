@@ -16,7 +16,7 @@ const LoginContainer = styled.div`
 const LoginTitle = () => {
   return (
     <LoginContainer>
-      <img src={icon_recycle} width={moderateScale(60,0.3)} height={moderateScale(60,0.3)} />
+      <img src={icon_recycle} alt="recycle Image" width={moderateScale(60,0.3)} height={moderateScale(60,0.3)} />
       <CustomTitle>LOGIN </CustomTitle>
     </LoginContainer>
   );
