@@ -31,7 +31,6 @@ const InputWrapper = styled.div`
 const Icon = styled.img`
   width: ${moderateScale(30,0.3)}px;
   height: ${moderateScale(30,0.3)}px;
-
 `;
 
 const ButtonContainer = styled.div`
@@ -92,7 +91,7 @@ const LoginForm = () => {
   return (
     <LoginContainer>
       <InputWrapper>
-        <Icon src={icon_user_black} />
+        <Icon alt="user Icon" src={icon_user_black} />
         <CustomInput
           placeholder="Surel Pengguna..."
           keyboardType="email"
@@ -100,7 +99,7 @@ const LoginForm = () => {
         />
       </InputWrapper>
       <InputWrapper>
-        <Icon src={icon_password} />
+        <Icon alt="password Icon" src={icon_password} />
         <CustomInput
           placeholder="Kata Sandi..."
           keyboardType="password"
