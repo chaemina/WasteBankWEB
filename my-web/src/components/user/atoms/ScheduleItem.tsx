@@ -6,6 +6,8 @@ import icon_search from "../../../assets/images/icon_search.svg";
 import CircleImage from "../../common/atoms/CircleImage";
 import icon_fill_star from "../../../assets/images/icon_fill_star.svg";
 import { scale, verticalScale } from "../../../utils/Scale";
+import { dayTranslation } from "../../../utils/DayTranslation";
+
 
 const ItemContainer = styled.div`
   background-color: #40892d;
@@ -60,11 +62,13 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({
 }) => {
   const nav = useNavigate();
 
+  const translatedDay = dayTranslation[day] || day; 
+
   return (
     <ItemContainer>
       <DayContainer>
         <CustomText color="white" bold={true} size="title">
-          {day}
+          {translatedDay}
         </CustomText>
         {status === "수거 완료" ? (
           <StarBtn onClick={() => nav(`/rating/${garbageId}`)}>
